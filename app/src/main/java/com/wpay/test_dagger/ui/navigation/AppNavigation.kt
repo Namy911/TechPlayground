@@ -9,14 +9,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.wpay.test_dagger.ui.screns.BottomNavigationBar
-import com.wpay.test_dagger.ui.screns.SettingsScreen
-import com.wpay.test_dagger.ui.screns.UserDetailsScreen
-import com.wpay.test_dagger.ui.screns.UserListScreen
+import com.wpay.test_dagger.ui.screens.BottomNavigationBar
+import com.wpay.test_dagger.ui.screens.SettingsScreen
+import com.wpay.test_dagger.ui.screens.UserDetailsScreen
+import com.wpay.test_dagger.ui.screens.UserListScreen
 import com.wpay.test_dagger.ui.viewmodel.UserViewModel
+import com.wpay.userstatistics.viewmodel.StatisticsViewModel
 
 @Composable
-fun AppNavigation(viewModel: UserViewModel) {
+fun AppNavigation(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewModel) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigationBar(navController) }
@@ -27,23 +28,21 @@ fun AppNavigation(viewModel: UserViewModel) {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable("user_list") {
-                UserListScreen(viewModel, navController)
+                UserListScreen(userViewModel, navController)
             }
             composable(
                 "user_details/{userName}/{userEmail}/{userId}",
                 arguments = listOf(
-                    navArgument("userName") { type = NavType.StringType },
-                    navArgument("userEmail") { type = NavType.StringType },
                     navArgument("userId") { type = NavType.IntType }
                 )
             ) { backStackEntry ->
-                val userName = backStackEntry.arguments?.getString("userName") ?: ""
-                val userEmail = backStackEntry.arguments?.getString("userEmail") ?: ""
                 val userId = backStackEntry.arguments?.getInt("userId") ?: 1
-                UserDetailsScreen(userId, userName, userEmail, navController, viewModel)
+                UserDetailsScreen(
+                    userId, navController, userViewModel, statisticsViewModel
+                )
             }
             composable("settings") {
-                SettingsScreen(navController, viewModel)
+                SettingsScreen(navController, userViewModel)
             }
         }
     }

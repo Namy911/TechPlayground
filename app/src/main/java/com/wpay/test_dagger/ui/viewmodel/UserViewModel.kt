@@ -2,19 +2,23 @@ package com.wpay.test_dagger.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.wpay.common.util.DispatcherProvider
+import com.wpay.common.util.Result
 import com.wpay.test_dagger.data.model.User
 import com.wpay.test_dagger.repository.UserRepository
+import com.wpay.test_dagger.util.NetworkManager
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val repository: UserRepository) : ViewModel() {
-
-    sealed class Result<out T> {
-        object Loading : Result<Nothing>()
-        data class Success<T>(val data: T) : Result<T>()
-        data class Error(val message: String) : Result<Nothing>()
-    }
+class UserViewModel(
+    private val repository: UserRepository,
+    private val dispatcher: DispatcherProvider,
+    networkManager: NetworkManager,
+) : ViewModel() {
 
     private val _users = MutableStateFlow<Result<List<User>>>(Result.Loading)
     val users: StateFlow<Result<List<User>>> = _users
@@ -25,42 +29,48 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     private val _settings = MutableStateFlow<Result<String>>(Result.Loading)
     val settings: StateFlow<Result<String>> = _settings
 
-    init {
-        fetchUsers()
-    }
+    private val isConnected = networkManager
+        .isConnected
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000L),
+            false
+        )
 
-    private fun fetchUsers() {
-        viewModelScope.launch {
-            _users.value = Result.Loading
-            try {
-                val usersList = repository.fetchUsers()
-                _users.value = Result.Success(usersList)
-            } catch (e: Exception) {
-                _users.value = Result.Error("Failed to load users")
+    init {
+        viewModelScope.launch(dispatcher.io) {
+            isConnected.collectLatest {
+                fetchUsers()
             }
         }
     }
 
-    fun fetchUserDetails(userId: Int, userName: String, userEmail: String) {
-        viewModelScope.launch {
-            _userDetails.value = Result.Loading
-            try {
-                val user = repository.fetchUserDetails(userId ,userName, userEmail)
-                _userDetails.value = Result.Success(user)
-            } catch (e: Exception) {
-                _userDetails.value = Result.Error("Failed to load user details")
+    private suspend fun fetchUsers() {
+        repository.fetchUsers(isConnected.value).collectLatest {
+            _users.value = it
+        }
+    }
+
+    fun fetchUserDetails(userId: Int) {
+        viewModelScope.launch(dispatcher.io) {
+            repository.fetchUserDetails(userId, isConnected.value).collectLatest {
+                _userDetails.value = it
             }
         }
     }
 
     fun fetchSettings() {
-        viewModelScope.launch {
-            _settings.value = Result.Loading
-            try {
-                val settingsData = repository.fetchSettings()
-                _settings.value = Result.Success(settingsData)
-            } catch (e: Exception) {
-                _settings.value = Result.Error("Failed to load settings")
+        viewModelScope.launch(dispatcher.io) {
+            repository.fetchSettings().collectLatest {
+                _settings.value = it
+            }
+        }
+    }
+
+    fun addUserOnFabClick(user: User) {
+        viewModelScope.launch(dispatcher.io) {
+            repository.addUser(user, isConnected.value).collectLatest {
+                _users.value = it
             }
         }
     }

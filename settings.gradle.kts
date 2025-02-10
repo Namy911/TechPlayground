@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "test_dagger"
 include(":app")
- 
+include(":feature:userStatistics")
+include(":common")

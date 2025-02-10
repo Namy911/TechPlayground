@@ -1,6 +1,7 @@
-package com.wpay.test_dagger.ui.screns
+package com.wpay.test_dagger.ui.screens
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
