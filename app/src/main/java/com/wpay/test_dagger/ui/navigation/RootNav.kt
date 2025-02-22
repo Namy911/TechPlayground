@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.wpay.common.data.BottomNavItem
+import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.test_dagger.ui.screens.BottomNavigationBar
 import com.wpay.test_dagger.ui.screens.SettingsScreen
 import com.wpay.test_dagger.ui.screens.UserDetailsScreen
@@ -17,33 +19,46 @@ import com.wpay.test_dagger.ui.viewmodel.UserViewModel
 import com.wpay.userstatistics.viewmodel.StatisticsViewModel
 
 @Composable
-fun AppNavigation(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewModel) {
+fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewModel) {
     val navController = rememberNavController()
+
+    val bottomNavScreens = listOf(
+        BottomNavItem.UserList,
+        BottomNavItem.Settings,
+    )
+
     Scaffold(
-        bottomBar = { BottomNavigationBar(navController) }
-    ) { paddingValues ->
+        bottomBar = {
+            BottomNavigationBar(navController, bottomNavScreens)
+        }
+    ) { innerPadding ->
         NavHost(
-            navController,
-            startDestination = "user_list",
-            modifier = Modifier.padding(paddingValues)
-        ) {
-            composable("user_list") {
+            navController = navController,
+            startDestination = ScreenRoutes.UserListScreenScreen.route,
+            modifier = Modifier.padding(innerPadding)
+
+        )
+        {
+            composable(ScreenRoutes.UserListScreenScreen.route) {
                 UserListScreen(userViewModel, navController)
             }
             composable(
-                "user_details/{userName}/{userEmail}/{userId}",
+                "${ScreenRoutes.UserDetailsScreen.route}/{userId}",
                 arguments = listOf(
-                    navArgument("userId") { type = NavType.IntType }
+                    navArgument("userId") {
+                        type = NavType.IntType
+                    }
                 )
             ) { backStackEntry ->
-                val userId = backStackEntry.arguments?.getInt("userId") ?: 1
+                val userId = backStackEntry.arguments?.getInt("userId")
                 UserDetailsScreen(
                     userId, navController, userViewModel, statisticsViewModel
                 )
             }
-            composable("settings") {
+            composable(ScreenRoutes.SettingsScreen.route) {
                 SettingsScreen(navController, userViewModel)
             }
         }
     }
 }
+

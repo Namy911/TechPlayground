@@ -13,10 +13,6 @@ data class User(
         return User(name = name,  email = email)
     }
 
-    fun toUserDto(): User {
-        return User(id, name, email)
-    }
-
     override fun toString(): String {
         return "User(id=$id, name='$name', email='$email')"
     }

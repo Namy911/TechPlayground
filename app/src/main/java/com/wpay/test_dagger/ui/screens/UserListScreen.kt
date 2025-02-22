@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.common.util.Result
 import com.wpay.test_dagger.data.model.User
 import com.wpay.test_dagger.ui.viewmodel.UserViewModel
@@ -47,7 +48,7 @@ fun UserListScreen(viewModel: UserViewModel, navController: NavHostController) {
     val usersState by viewModel.users.collectAsState(initial = Result.Loading)
 
     LaunchedEffect(Unit) {
-        startSessionTracking(context, "1","UserList")
+        startSessionTracking(context, "1",ScreenRoutes.UserListScreenScreen.route)
     }
 
     DisposableEffect(Unit) {
@@ -111,7 +112,7 @@ fun UserCard(user: User, navController: NavController) {
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-                navController.navigate("user_details/${user.name}/${user.email}/${user.id}")
+                navController.navigate("${ScreenRoutes.UserDetailsScreen.route}/${user.id}")
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {

@@ -3,12 +3,21 @@ package com.wpay.test_dagger
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import com.wpay.common.util.DefaultDispatchers
 import com.wpay.common.util.DispatcherProvider
 import com.wpay.test_dagger.data.model.FakeApiService
 import com.wpay.test_dagger.repository.UserRepository
-import com.wpay.test_dagger.ui.navigation.AppNavigation
+import com.wpay.test_dagger.ui.navigation.RootNav
 import com.wpay.test_dagger.ui.viewmodel.UserViewModel
 import com.wpay.test_dagger.ui.viewmodel.UserViewModelFactory
 import com.wpay.test_dagger.util.NetworkManager
@@ -45,8 +54,18 @@ class MainActivity : ComponentActivity() {
         database = UserDatabase.getInstance(applicationContext)
         repository = StatisticsRepository(database)
 
+        enableEdgeToEdge()
         setContent {
-            AppNavigation(userViewModel, statisticsViewModel)
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        WindowInsets.statusBars.asPaddingValues()
+                    ),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                RootNav(userViewModel, statisticsViewModel)
+            }
         }
     }
 }

@@ -32,18 +32,22 @@ import com.wpay.userstatistics.viewmodel.StatisticsViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserDetailsScreen(
-    userId: Int,
+    userId: Int?,
     navController: NavController,
     userViewModel: UserViewModel,
     statisticsViewModel: StatisticsViewModel,
 ) {
 
     LaunchedEffect(Unit) {
-        userViewModel.fetchUserDetails(userId)
+        if (userId != null) {
+            userViewModel.fetchUserDetails(userId)
+        }
     }
 
     LaunchedEffect(Unit) {
-        statisticsViewModel.loadUserSessions(userId)
+        if (userId != null) {
+            statisticsViewModel.loadUserSessions(userId)
+        }
     }
 
     val userDetails by userViewModel.userDetails.collectAsState()
