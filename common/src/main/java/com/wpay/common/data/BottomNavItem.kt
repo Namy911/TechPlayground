@@ -18,7 +18,13 @@ sealed class BottomNavItem(
 
     data object Settings : BottomNavItem(
         ScreenRoutes.SettingsScreen.route,
-        R.drawable.account,
+        R.drawable.paper,
         R.string.settings
+    )
+
+    data object Profile : BottomNavItem(
+        ScreenRoutes.AccountScreen.route,
+        R.drawable.account,
+        R.string.profile
     )
 }

@@ -21,7 +21,7 @@ class UserRepository(
             if (result is Result.Success)
                 result.data.map { User(it.id, it.name, it.email) } else emptyList()
         }
-        delay(1000)
+        delay(2000)
         if (isConnected && !dbUsers.isNullOrEmpty()) {
             apiService.addUser(dbUsers)
         }
@@ -35,7 +35,7 @@ class UserRepository(
 
     fun addUser(user: User, isConnected: Boolean) = flow {
         emit(Result.Loading)
-
+        delay(2000)
         if (isConnected) {
             apiService.addUser(listOf(user))
         }

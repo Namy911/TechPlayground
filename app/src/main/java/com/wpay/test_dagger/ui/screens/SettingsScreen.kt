@@ -1,5 +1,6 @@
 package com.wpay.test_dagger.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,17 +12,20 @@ import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.common.util.Result
 import com.wpay.test_dagger.ui.viewmodel.UserViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     navController: NavController,
-    viewModel: UserViewModel
+    viewModel: UserViewModel,
+    onNavigateBack: () -> Unit,
 ) {
     val context = LocalContext.current
+    val settingsState by viewModel.settings.collectAsState()
+
+    BackHandler { onNavigateBack() }
 
     LaunchedEffect(Unit) {
         viewModel.fetchSettings()
-        startSessionTracking(context, "1",ScreenRoutes.SettingsScreen.route)
+        startSessionTracking(context, "1", ScreenRoutes.SettingsScreen.route)
     }
 
     DisposableEffect(Unit) {
@@ -29,32 +33,26 @@ fun SettingsScreen(
             stopSessionTracking(context)
         }
     }
-    val settingsState by viewModel.settings.collectAsState()
 
-    Scaffold(
-        topBar = { TopAppBar(title = { Text(ScreenRoutes.SettingsScreen.route) }) }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp)
-        ) {
-            when (settingsState) {
-                is Result.Loading -> CircularProgressIndicator()
-                is Result.Success -> Text(
-                    (settingsState as Result.Success<String>).data,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        when (settingsState) {
+            is Result.Loading -> CircularProgressIndicator()
+            is Result.Success -> Text(
+                (settingsState as Result.Success<String>).data,
+                style = MaterialTheme.typography.bodyMedium
+            )
 
-                is Result.Error -> Text("Error loading settings")
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = {
-                navController.navigate(ScreenRoutes.UserListScreenScreen.route)
-            }) {
-                Text("Back to Users")
-            }
+            is Result.Error -> Text("Error loading settings")
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = {
+            navController.navigate(ScreenRoutes.UserListScreenScreen.route)
+        }) {
+            Text("Back to Users")
         }
     }
 }
