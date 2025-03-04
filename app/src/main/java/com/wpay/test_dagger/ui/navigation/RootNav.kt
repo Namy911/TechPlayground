@@ -7,8 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.wpay.authentication.navigation.AuthNav
 import com.wpay.common.data.BottomNavItem
 import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.test_dagger.ui.screens.BottomNavigationBar
@@ -26,19 +28,22 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
         BottomNavItem.UserList,
         BottomNavItem.Settings,
     )
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+
+    val showBottomBar =  bottomNavScreens.find { it.route == currentDestination?.route } != null
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController, bottomNavScreens)
+            if (showBottomBar) {
+                BottomNavigationBar(navController, bottomNavScreens)
+            }
         }
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = ScreenRoutes.UserListScreenScreen.route,
+            startDestination = ScreenRoutes.AuthNav.route,
             modifier = Modifier.padding(innerPadding)
-
-        )
-        {
+        ) {
             composable(ScreenRoutes.UserListScreenScreen.route) {
                 UserListScreen(userViewModel, navController)
             }
@@ -58,6 +63,8 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
             composable(ScreenRoutes.SettingsScreen.route) {
                 SettingsScreen(navController, userViewModel)
             }
+
+            AuthNav(navController)
         }
     }
 }
