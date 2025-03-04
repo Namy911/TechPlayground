@@ -26,7 +26,6 @@ import com.wpay.userstatistics.repository.StatisticsRepository
 import com.wpay.userstatistics.viewmodel.StatisticsViewModel
 import com.wpay.userstatistics.viewmodel.StatisticsViewModelFactory
 
-
 class MainActivity : ComponentActivity() {
     private lateinit var database: UserDatabase
     private lateinit var networkManager: NetworkManager
