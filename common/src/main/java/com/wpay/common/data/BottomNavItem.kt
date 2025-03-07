@@ -16,6 +16,13 @@ sealed class BottomNavItem(
         R.string.user_list
     )
 
+    data object Consultation : BottomNavItem(
+        ScreenRoutes.AppointmentScreen.route,
+        R.drawable.calendar_24,
+        R.string.user_list
+    )
+
+
     data object Settings : BottomNavItem(
         ScreenRoutes.SettingsScreen.route,
         R.drawable.paper,

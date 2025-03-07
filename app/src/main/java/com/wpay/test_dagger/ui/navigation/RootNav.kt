@@ -26,6 +26,7 @@ import androidx.navigation.navArgument
 import com.wpay.authentication.ui.navigation.AuthNav
 import com.wpay.common.data.BottomNavItem
 import com.wpay.common.navigation.ScreenRoutes
+import com.wpay.medibook.ui.navigation.AppointmentNav
 import com.wpay.test_dagger.ui.screens.BottomNavigationBar
 import com.wpay.test_dagger.ui.screens.SettingsScreen
 import com.wpay.test_dagger.ui.screens.UserDetailsScreen
@@ -39,17 +40,25 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
     val navController = rememberNavController()
 
     val bottomNavScreens = listOf(
-        BottomNavItem.UserList,
+        BottomNavItem.Consultation,
         BottomNavItem.Settings,
         BottomNavItem.Profile,
     )
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
 
-    val itemBar = bottomNavScreens.find { it.route == currentDestination?.route }
+    val itemBar = when (currentDestination?.route) {
+        ScreenRoutes.BookAppointmentScreen.route -> BottomNavItem.Consultation
+        else -> bottomNavScreens.find { it.route == currentDestination?.route }
+    }
+
+    val showTitle = when (currentDestination?.route) {
+        ScreenRoutes.AppointmentScreen.route -> false
+        else -> true
+    }
 
     Scaffold(
         topBar = {
-            if (itemBar != null) {
+            if (showTitle && itemBar != null) {
                 TopAppBar(title = {
                     Box(
                         modifier = Modifier
@@ -61,7 +70,7 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
                             text = stringResource(itemBar.labelId),
                             textAlign = TextAlign.Center,
                             color = Color.Black,
-                            style = MaterialTheme.typography.headlineLarge,
+                            style = MaterialTheme.typography.titleLarge,
                         )
                     }
                 })
@@ -75,7 +84,7 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = ScreenRoutes.AuthNav.route,
+            startDestination = ScreenRoutes.ConsultationNav.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(ScreenRoutes.UserListScreenScreen.route) {
@@ -95,7 +104,7 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
                 )
             }
             composable(ScreenRoutes.SettingsScreen.route) {
-                SettingsScreen(navController, userViewModel){
+                SettingsScreen(navController, userViewModel) {
                     finishAndNavigateBack(navController)
                 }
             }
@@ -105,13 +114,15 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
                 onNavigateBack = { finishAndNavigateBack(navController) },
                 handleExit = { handleExit(navController) },
             )
+
+            AppointmentNav(navController)
         }
     }
 }
 
 fun finishAndNavigateBack(navController: NavHostController) {
     if (navController.previousBackStackEntry == null) {
-        navController.navigate(ScreenRoutes.UserListScreenScreen.route) {
+        navController.navigate(ScreenRoutes.ConsultationNav.route) {
             launchSingleTop = true
             popUpTo(ScreenRoutes.AuthNav.route) { inclusive = true }
         }
@@ -124,7 +135,7 @@ fun handleExit(navController: NavHostController) {
     if (navController.previousBackStackEntry != null) {
         navController.popBackStack()
     } else {
-        navController.navigate(ScreenRoutes.UserListScreenScreen.route)
+        navController.navigate(ScreenRoutes.ConsultationNav.route)
     }
 }
 

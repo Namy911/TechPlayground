@@ -13,3 +13,9 @@ val Pink40 = Color(0xFF7D5260)
 
 val primaryTextColor = Blue80
 val btnBackgroundColor = Blue80
+
+
+val primaryColor = Blue80
+val secondaryColor = Color(0xFF03DAC5)
+val backgroundColor = Color(0xFFFFFFFF)
+val textColor = Color(0xFF000000)

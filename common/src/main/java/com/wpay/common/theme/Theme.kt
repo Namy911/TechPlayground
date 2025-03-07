@@ -1,6 +1,5 @@
-package com.wpay.test_dagger.ui.theme
+package com.wpay.common.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -10,15 +9,21 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.medacces.core.ui.theme.Blue80
+import com.medacces.core.ui.theme.Pink40
+import com.medacces.core.ui.theme.Pink80
+import com.medacces.core.ui.theme.PurpleGrey40
+import com.medacces.core.ui.theme.PurpleGrey80
+
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = Blue80,
     secondary = PurpleGrey80,
     tertiary = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = Blue80,
     secondary = PurpleGrey40,
     tertiary = Pink40
 
@@ -33,8 +38,10 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+
+
 @Composable
-fun Test_daggerTheme(
+fun Med_Access_Theme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

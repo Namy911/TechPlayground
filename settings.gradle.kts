@@ -19,8 +19,9 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "test_dagger"
+rootProject.name = "tech_playground"
 include(":app")
 include(":feature:userStatistics")
 include(":common")
 include(":feature:profile")
+include(":feature:mediBook")

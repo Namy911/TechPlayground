@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.wpay.common.theme.Med_Access_Theme
 import com.wpay.common.util.DefaultDispatchers
 import com.wpay.common.util.DispatcherProvider
 import com.wpay.test_dagger.data.model.FakeApiService
@@ -55,15 +56,17 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        WindowInsets.statusBars.asPaddingValues()
-                    ),
-                color = MaterialTheme.colorScheme.background
-            ) {
-                RootNav(userViewModel, statisticsViewModel)
+            Med_Access_Theme {
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            WindowInsets.statusBars.asPaddingValues()
+                        ),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    RootNav(userViewModel, statisticsViewModel)
+                }
             }
         }
     }

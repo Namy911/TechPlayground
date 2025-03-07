@@ -76,7 +76,7 @@ fun LoginForm(navController: NavHostController) {
             btnText = "Intră în cont",
             promptText = promptText,
             onTextClick = {},
-            onBtnClick =  { navController.navigate(route = ScreenRoutes.UserListScreenScreen.route) },
+            onBtnClick =  { navController.navigate(route = ScreenRoutes.ConsultationNav.route) },
         )
     }
 }
