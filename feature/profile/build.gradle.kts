@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.wpay.authentication"
+    namespace = "com.wpay.profile"
     compileSdk = 35
 
     defaultConfig {

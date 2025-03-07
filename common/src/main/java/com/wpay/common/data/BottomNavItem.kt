@@ -22,9 +22,9 @@ sealed class BottomNavItem(
         R.string.settings
     )
 
-    data object Test : BottomNavItem(
-        ScreenRoutes.LoginScreen.route,
+    data object Profile : BottomNavItem(
+        ScreenRoutes.AccountScreen.route,
         R.drawable.account,
-        R.string.test
+        R.string.profile
     )
 }

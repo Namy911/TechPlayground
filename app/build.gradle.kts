@@ -42,7 +42,7 @@ android {
 
 dependencies {
     implementation(project(":feature:userStatistics"))
-    implementation(project(":feature:authentication"))
+    implementation(project(":feature:profile"))
     implementation(project(":common"))
 
     implementation(libs.kotlinx.serialization.json)

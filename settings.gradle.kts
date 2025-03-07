@@ -23,4 +23,4 @@ rootProject.name = "test_dagger"
 include(":app")
 include(":feature:userStatistics")
 include(":common")
-include(":feature:authentication")
+include(":feature:profile")

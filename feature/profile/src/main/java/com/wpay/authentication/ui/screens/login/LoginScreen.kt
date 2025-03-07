@@ -1,4 +1,4 @@
-package com.wpay.authentication.navigation
+package com.wpay.authentication.ui.screens.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,12 +22,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.wpay.authentication.ui.screens.registration.BottomTextSection
+import com.wpay.authentication.ui.screens.registration.ScreenHeader
+import com.wpay.authentication.ui.screens.registration.StyledTextInput
 import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.common.util.getStyledText
 
 @Composable
 fun LoginScreen(
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     Box(
         modifier = Modifier

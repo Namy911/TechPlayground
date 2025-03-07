@@ -1,4 +1,4 @@
-package com.wpay.authentication.navigation
+package com.wpay.authentication.ui.screens.registration
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -46,9 +46,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.medacces.core.ui.theme.btnBackgroundColor
 import com.medacces.core.ui.theme.primaryTextColor
-import com.wpay.authentication.R
 import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.common.util.getStyledText
+import com.wpay.profile.R
 
 @Composable
 fun RegisterScreen(navController: NavHostController) {
