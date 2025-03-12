@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.wpay.common.R.drawable
 import com.wpay.common.navigation.ScreenRoutes
+import com.wpay.common.ui.MedicalCardItem
+import com.wpay.common.ui.sampleUsers
 import com.wpay.medibook.R
 
 @Composable
@@ -74,19 +76,10 @@ fun AppointmentScreen(navigation: NavHostController) {
 
             LazyColumn {
                 items(sampleUsers) { user ->
-                    AppointmentListItem(user, Modifier)
+                    MedicalCardItem(user, Modifier)
                 }
             }
         }
     }
 }
 
-data class User(val name: String, val surname: String)
-
-val sampleUsers = listOf(
-    User("John", "Doe"),
-    User("Jane", "Smith"),
-    User("Alice", "Johnson"),
-    User("Bob", "Brown"),
-    User("Bob", "Brown"),
-)

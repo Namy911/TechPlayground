@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.medacces.core.ui.theme.btnBackgroundColor
-import com.wpay.medibook.R
+import com.wpay.common.R.*
 
 @Composable
 fun BookConsultationCard(
@@ -36,7 +36,7 @@ fun BookConsultationCard(
     @DrawableRes imageId: Int,
     onClick: () -> Unit,
     activeFormSlot: @Composable () -> Unit,
-    @DrawableRes activeFormImageId: Int = R.drawable.navigate_next,
+    @DrawableRes activeFormImageId: Int = drawable.navigate_next,
 ) {
     Column(
         modifier = Modifier

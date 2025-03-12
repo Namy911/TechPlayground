@@ -9,8 +9,10 @@ sealed class ScreenRoutes(val route: String) {
     data object AccountScreen : ScreenRoutes("account_screen")
     data object AppointmentScreen : ScreenRoutes("appointment_screen")
     data object BookAppointmentScreen : ScreenRoutes("book_appointment_screen")
+    data object MedHistoryScreenScreen : ScreenRoutes("med_history_screen")
 
     //Graph Routes
     data object AuthNav : ScreenRoutes("AUTH_NAV_GRAPH")
     data object ConsultationNav : ScreenRoutes("APPOINTMENT_NAV_GRAPH")
+    data object MedHistoryNav : ScreenRoutes("MED_HISTORY_NAV_GRAPH")
 }

@@ -1,4 +1,4 @@
-package com.wpay.medibook.ui.screens.consultation
+package com.wpay.common.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.medacces.core.ui.theme.primaryTextColor
 import com.wpay.common.R.drawable
-import com.wpay.medibook.R
+
 
 @Composable
-fun AppointmentListItem(user: User, modifier: Modifier) {
+fun MedicalCardItem(user: User, modifier: Modifier) {
     Card(
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(8.dp),
@@ -70,7 +70,7 @@ fun AppointmentListItem(user: User, modifier: Modifier) {
             }
 
             Image(
-                painter = painterResource(R.drawable.navigate_next),
+                painter = painterResource( drawable.navigate_next),
                 contentDescription = "Arrow",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(24.dp)
@@ -78,3 +78,13 @@ fun AppointmentListItem(user: User, modifier: Modifier) {
         }
     }
 }
+
+data class User(val name: String, val surname: String)
+
+val sampleUsers = listOf(
+    User("John", "Doe"),
+    User("Jane", "Smith"),
+    User("Alice", "Johnson"),
+    User("Bob", "Brown"),
+    User("Bob", "Brown"),
+)
