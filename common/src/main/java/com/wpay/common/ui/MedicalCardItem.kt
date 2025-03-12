@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.medacces.core.ui.theme.primaryTextColor
+import com.wpay.common.theme.primaryTextColor
 import com.wpay.common.R.drawable
 
 

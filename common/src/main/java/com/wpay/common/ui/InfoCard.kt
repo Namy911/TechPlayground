@@ -19,7 +19,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.medacces.core.ui.theme.primaryTextColor
+import com.wpay.common.theme.primaryTextColor
 import com.wpay.common.data.ButtonConfig
 import com.wpay.common.data.ResultButtonConfigImp
 import com.wpay.common.data.SimpleButtonConfigImp

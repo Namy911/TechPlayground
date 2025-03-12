@@ -9,11 +9,6 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.medacces.core.ui.theme.Blue80
-import com.medacces.core.ui.theme.Pink40
-import com.medacces.core.ui.theme.Pink80
-import com.medacces.core.ui.theme.PurpleGrey40
-import com.medacces.core.ui.theme.PurpleGrey80
 
 
 private val DarkColorScheme = darkColorScheme(

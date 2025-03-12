@@ -44,8 +44,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.medacces.core.ui.theme.btnBackgroundColor
-import com.medacces.core.ui.theme.primaryTextColor
+import com.wpay.common.theme.btnBackgroundColor
+import com.wpay.common.theme.primaryTextColor
 import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.common.util.getStyledText
 import com.wpay.profile.R

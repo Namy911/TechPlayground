@@ -29,6 +29,7 @@ import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.medhistory.ui.navigation.MedHistoryNav
 import com.wpay.medibook.ui.navigation.AppointmentNav
 import com.wpay.test_dagger.ui.screens.BottomNavigationBar
+import com.wpay.test_dagger.ui.screens.home.HomeScreen
 import com.wpay.test_dagger.ui.screens.SettingsScreen
 import com.wpay.test_dagger.ui.screens.UserDetailsScreen
 import com.wpay.test_dagger.ui.screens.UserListScreen
@@ -86,9 +87,13 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = ScreenRoutes.AuthNav.route,
+            startDestination = ScreenRoutes.HomeScreen.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+            composable(route = ScreenRoutes.HomeScreen.route) {
+                HomeScreen(navController)
+            }
+
             composable(ScreenRoutes.UserListScreenScreen.route) {
                 UserListScreen(userViewModel, navController)
             }

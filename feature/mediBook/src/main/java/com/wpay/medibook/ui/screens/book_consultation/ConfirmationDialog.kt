@@ -18,8 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.medacces.core.ui.theme.primaryTextColor
-import com.wpay.medibook.R
+import com.wpay.common.theme.primaryTextColor
 
 @Composable
 fun ConfirmationDialog(

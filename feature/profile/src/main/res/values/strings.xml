@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">wpay</string>
+    <string name="login_text">Loghiază-te</string>
+    <string name="account_prompt_text">Încă nu ai un cont nou?</string>
+    <string name="create_new_account_btn_text">Crează un cont nou</string>
+    <string name="consultation_doctor_message">Ai nevoie de o consultație\nla medicul de familie?</string>
+    <string name="welcome_message">Bine ai venit!</string>
+</resources>

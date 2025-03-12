@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.medacces.core.ui.theme.btnBackgroundColor
-import com.medacces.core.ui.theme.primaryTextColor
+import com.wpay.common.theme.btnBackgroundColor
+import com.wpay.common.theme.primaryTextColor
 import com.wpay.common.R
 import com.wpay.common.data.ResultButtonConfigImp
 import com.wpay.common.data.SimpleButtonConfigImp

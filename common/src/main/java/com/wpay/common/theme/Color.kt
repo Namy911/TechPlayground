@@ -1,4 +1,4 @@
-package com.medacces.core.ui.theme
+package com.wpay.common.theme
 
 import androidx.compose.ui.graphics.Color
 

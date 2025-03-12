@@ -15,7 +15,7 @@ fun NavGraphBuilder.AuthNav(
     handleExit: () -> Unit,
 ) {
     navigation(
-        startDestination = ScreenRoutes.LoginScreen.route,
+        startDestination = ScreenRoutes.HomeScreen.route,
         route = ScreenRoutes.AuthNav.route
     ) {
         composable(route = ScreenRoutes.LoginScreen.route) {

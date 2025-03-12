@@ -6,7 +6,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import com.medacces.core.ui.theme.primaryTextColor
+import com.wpay.common.theme.primaryTextColor
 
 fun getStyledText(mainText: String, subText: String): AnnotatedString {
     val nonBreakingSpace = "\u00A0"
