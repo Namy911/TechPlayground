@@ -118,7 +118,7 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
             )
 
             AppointmentNav(navController)
-            MedHistoryNav(navController)
+            MedHistoryNav()
         }
     }
 }

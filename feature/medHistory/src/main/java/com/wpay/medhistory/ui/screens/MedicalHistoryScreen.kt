@@ -7,13 +7,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.wpay.common.ui.MedicalCardItem
 import com.wpay.common.ui.sampleUsers
 
 
 @Composable
-fun MedicalHistoryScreen (navController: NavController){
+fun MedicalHistoryScreen() {
     Column(modifier = Modifier.padding(16.dp)) {
         LazyColumn {
             items(sampleUsers) { user ->
