@@ -63,7 +63,7 @@ fun BookAppointmentScreen(activeFormId: Int, navController: NavHostController) {
         BookConsultationCard(
             text = "Programeazate o \nconsultatie",
             imageId = R.drawable.calendar_24,
-            activeFormImageId = if (expandedCard == 1) drawable.navigate_next_2 else drawable.navigate_next,
+            activeFormImageId = if (expandedCard == 1) drawable.navigate_next_2 else R.drawable.navigate_next,
             onClick = { expandedCard = if (expandedCard == 1) null else 1 },
             activeFormSlot = {
                 if (expandedCard == 1) {
@@ -97,7 +97,7 @@ fun BookAppointmentScreen(activeFormId: Int, navController: NavHostController) {
         BookConsultationCard(
             text = "Solicita o\nreceta",
             imageId = drawable.book_24,
-            activeFormImageId = if (expandedCard == 2) drawable.navigate_next_2 else drawable.navigate_next,
+            activeFormImageId = if (expandedCard == 2) drawable.navigate_next_2 else R.drawable.navigate_next,
             onClick = { expandedCard = if (expandedCard == 2) null else 2 },
             activeFormSlot = {
                 if (expandedCard == 2) {

@@ -26,6 +26,7 @@ import androidx.navigation.navArgument
 import com.wpay.authentication.ui.navigation.AuthNav
 import com.wpay.common.data.BottomNavItem
 import com.wpay.common.navigation.ScreenRoutes
+import com.wpay.medhistory.ui.navigation.MedHistoryNav
 import com.wpay.medibook.ui.navigation.AppointmentNav
 import com.wpay.test_dagger.ui.screens.BottomNavigationBar
 import com.wpay.test_dagger.ui.screens.SettingsScreen
@@ -42,6 +43,7 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
     val bottomNavScreens = listOf(
         BottomNavItem.Consultation,
         BottomNavItem.Settings,
+        BottomNavItem.MedHistory,
         BottomNavItem.Profile,
     )
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
@@ -84,7 +86,7 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = ScreenRoutes.ConsultationNav.route,
+            startDestination = ScreenRoutes.AuthNav.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(ScreenRoutes.UserListScreenScreen.route) {
@@ -116,6 +118,7 @@ fun RootNav(userViewModel: UserViewModel, statisticsViewModel: StatisticsViewMod
             )
 
             AppointmentNav(navController)
+            MedHistoryNav()
         }
     }
 }

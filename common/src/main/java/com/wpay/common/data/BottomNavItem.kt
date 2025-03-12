@@ -22,6 +22,12 @@ sealed class BottomNavItem(
         R.string.user_list
     )
 
+    data object MedHistory : BottomNavItem(
+        ScreenRoutes.MedHistoryScreenScreen.route,
+        R.drawable.group_20,
+        R.string.medical_history
+    )
+
 
     data object Settings : BottomNavItem(
         ScreenRoutes.SettingsScreen.route,
