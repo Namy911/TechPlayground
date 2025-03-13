@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -60,6 +62,9 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.navigation.compose)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

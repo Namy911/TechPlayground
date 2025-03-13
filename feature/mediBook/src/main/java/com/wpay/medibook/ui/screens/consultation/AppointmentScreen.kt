@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.wpay.common.R.drawable
 import com.wpay.common.navigation.ScreenRoutes
-import com.wpay.common.ui.MedicalCardItem
-import com.wpay.common.ui.sampleUsers
+import com.wpay.common.ui.components.MedicalCardItem
+import com.wpay.common.ui.components.sampleUsers
 import com.wpay.medibook.R
 
 @Composable

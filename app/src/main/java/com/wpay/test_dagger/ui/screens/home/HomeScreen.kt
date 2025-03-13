@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.wpay.common.theme.primaryTextColor
+import com.wpay.common.ui.theme.primaryColor
 import com.wpay.profile.R
 
 @Composable
@@ -43,7 +43,7 @@ fun HomeScreen(navController: NavHostController) {
         Text(
             text = stringResource(R.string.welcome_message),
             style = MaterialTheme.typography.headlineLarge,
-            color = primaryTextColor
+            color = primaryColor
         )
         Text(
             text = stringResource(R.string.consultation_doctor_message),

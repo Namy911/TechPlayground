@@ -3,8 +3,8 @@ package com.wpay.userstatistics.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wpay.common.util.DispatcherProvider
-import com.wpay.userstatistics.model.entity.SessionDuration
-import com.wpay.userstatistics.repository.StatisticsRepository
+import com.wpay.common.data.database.entity.SessionDuration
+import com.wpay.common.data.repository.StatisticsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

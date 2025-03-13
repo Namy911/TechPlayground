@@ -13,13 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.wpay.common.theme.btnBackgroundColor
-import com.wpay.common.theme.primaryTextColor
+import com.wpay.common.ui.theme.btnBackgroundColor
+import com.wpay.common.ui.theme.primaryColor
 import com.wpay.common.R
-import com.wpay.common.data.ResultButtonConfigImp
-import com.wpay.common.data.SimpleButtonConfigImp
+import com.wpay.common.data.model.ResultButtonConfigImp
+import com.wpay.common.data.model.SimpleButtonConfigImp
 import com.wpay.common.navigation.ScreenRoutes
-import com.wpay.common.ui.InfoCard
+import com.wpay.common.ui.components.InfoCard
 import com.wpay.medibook.R.drawable
 
 @Composable
@@ -76,7 +76,7 @@ fun BookAppointmentScreen(activeFormId: Int, navController: NavHostController) {
                         buttons = listOf(
                             SimpleButtonConfigImp(
                                 text = "Cancel",
-                                textColor = primaryTextColor,
+                                textColor = primaryColor,
                                 backgroundColor = Color.White
                             ) {
                                 navController.popBackStack()

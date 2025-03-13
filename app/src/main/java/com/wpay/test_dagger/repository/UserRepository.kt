@@ -3,7 +3,7 @@ package com.wpay.test_dagger.repository
 import com.wpay.common.util.Result
 import com.wpay.test_dagger.data.model.FakeApiService
 import com.wpay.test_dagger.data.model.User
-import com.wpay.userstatistics.repository.StatisticsRepository
+import com.wpay.common.data.repository.StatisticsRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull

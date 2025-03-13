@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.wpay.common.theme.primaryTextColor
+import com.wpay.common.ui.theme.primaryColor
 
 @Composable
 fun ConfirmationDialog(
@@ -51,7 +51,7 @@ fun ConfirmationDialog(
                 ) {
                     Button(
                         onClick = onButtonClick,
-                        colors = ButtonDefaults.buttonColors(primaryTextColor),
+                        colors = ButtonDefaults.buttonColors(primaryColor),
                         modifier = Modifier.width(128.dp)
                     ) {
                         Text("Inchideti", style = MaterialTheme.typography.labelLarge)

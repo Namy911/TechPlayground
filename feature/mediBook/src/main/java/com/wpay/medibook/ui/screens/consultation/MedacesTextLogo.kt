@@ -10,7 +10,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.wpay.common.theme.primaryTextColor
+import com.wpay.common.ui.theme.primaryColor
 
 @Composable
 fun MedacesTextLogo() {
@@ -32,7 +32,7 @@ fun MedacesTextLogo() {
         addStyle(
             style = SpanStyle(
                 fontWeight = FontWeight.Bold,
-                color = primaryTextColor
+                color = primaryColor
             ),
             start = startPos + 3,
             end = startPos + 7

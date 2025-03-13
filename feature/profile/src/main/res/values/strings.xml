@@ -6,4 +6,12 @@
     <string name="create_new_account_btn_text">Crează un cont nou</string>
     <string name="consultation_doctor_message">Ai nevoie de o consultație\nla medicul de familie?</string>
     <string name="welcome_message">Bine ai venit!</string>
+    <string name="prompt_acc_part1">Încă nu ai un cont?</string>
+    <string name="prompt_acc_part2">Înregistrează-te</string>
+    <string name="placeholder_pass">********</string>
+    <string name="login_header">Logare</string>
+    <string name="labe_email">Email</string>
+    <string name="label_pssword">Parola</string>
+    <string name="btn_login_txt">Intră în cont</string>
+    <string name="remember_pass_txt">Remember me</string>
 </resources>

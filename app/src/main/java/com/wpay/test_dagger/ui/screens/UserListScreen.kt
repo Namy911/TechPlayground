@@ -35,8 +35,8 @@ import com.wpay.common.navigation.ScreenRoutes
 import com.wpay.common.util.Result
 import com.wpay.test_dagger.data.model.User
 import com.wpay.test_dagger.ui.viewmodel.UserViewModel
-import com.wpay.userstatistics.service.SessionTrackingService
-import com.wpay.userstatistics.service.SessionTrackingService.Companion.createSessionTrackingIntent
+import com.wpay.common.data.remote.SessionTrackingService
+import com.wpay.common.data.remote.SessionTrackingService.Companion.createSessionTrackingIntent
 
 @Composable
 fun UserListScreen(viewModel: UserViewModel, navController: NavHostController) {
@@ -45,7 +45,7 @@ fun UserListScreen(viewModel: UserViewModel, navController: NavHostController) {
     val usersState by viewModel.users.collectAsState(initial = Result.Loading)
 
     LaunchedEffect(Unit) {
-        startSessionTracking(context, "1",ScreenRoutes.UserListScreenScreen.route)
+        startSessionTracking(context, "1", ScreenRoutes.UserListScreenScreen.route)
     }
 
     DisposableEffect(Unit) {

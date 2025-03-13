@@ -15,6 +15,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".MedAccesApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Test_dagger"
@@ -31,7 +32,7 @@
         </activity>
 
         <service
-            android:name="com.wpay.userstatistics.service.SessionTrackingService"
+            android:name="com.wpay.common.data.remote.SessionTrackingService"
             android:foregroundServiceType="location"
             android:exported="false">
         </service>
