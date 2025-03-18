@@ -1,6 +1,6 @@
 package com.wpay.test_dagger.data.model
 
-import com.wpay.common.data.database.entity.User
+import com.wpay.core.data.database.entity.User
 import kotlinx.serialization.Serializable
 
 @Serializable

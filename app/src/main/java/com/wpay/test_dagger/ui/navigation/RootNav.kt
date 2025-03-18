@@ -25,8 +25,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.wpay.authentication.presentation.ui.navigation.AuthNav
-import com.wpay.common.data.model.BottomNavItem
-import com.wpay.common.navigation.ScreenRoutes
+import com.wpay.core.data.model.BottomNavItem
+import com.wpay.core.navigation.ScreenRoutes
 import com.wpay.medhistory.ui.navigation.MedHistoryNav
 import com.wpay.medibook.ui.navigation.AppointmentNav
 import com.wpay.test_dagger.ui.screens.BottomNavigationBar

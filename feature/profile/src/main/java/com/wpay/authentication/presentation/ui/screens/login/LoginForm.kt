@@ -18,26 +18,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.wpay.authentication.data.model.LoginUiState
+import com.wpay.authentication.presentation.ui.screens.ScreenHeader
 import com.wpay.authentication.presentation.ui.screens.registration.BottomTextSection
-import com.wpay.authentication.presentation.ui.screens.registration.ScreenHeader
-import com.wpay.common.ui.components.CustomTextField
-import com.wpay.common.ui.extensions.getStyledText
-import com.wpay.common.ui.theme.primaryColor
+import com.wpay.authentication.presentation.viewmodel.LoginViewModel
+import com.wpay.core.navigation.ScreenRoutes
+import com.wpay.core.ui.components.CustomTextField
+import com.wpay.core.ui.extensions.getStyledText
+import com.wpay.core.ui.theme.primaryColor
 import com.wpay.profile.R
 
 @Composable
 fun LoginForm(
-    email: String,
     isButtonEnabled: Boolean,
-    isRemembered: Boolean,
-    password: String,
-    isError: Boolean = false,
     isLoading: Boolean = false,
-    onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onBtnClick: () -> Unit,
-    onTextClick: () -> Unit,
-    onRememberChange: (Boolean) -> Unit,
+    navController: NavHostController,
+    uiState: LoginUiState,
+    viewModel: LoginViewModel,
 ) {
     if (isLoading) {
         Box(
@@ -59,33 +57,33 @@ fun LoginForm(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        ScreenHeader(title = stringResource(R.string.login_header))
+        ScreenHeader(stringResource(R.string.login_header))
 
         Spacer(modifier = Modifier.height(16.dp))
 
         CustomTextField(
-            value = email,
-            onValueChange = { onEmailChange(it) },
+            value = uiState.login,
+            onValueChange = { viewModel.onEmailChange(it) },
             label = stringResource(R.string.labe_email),
-            isError = isError,
-            isFormDisabled = !isLoading,
+            isError = uiState.loginError != null,
+            isFormDisabled = !uiState.isLoading,
             keyboardType = KeyboardType.Email
         )
 
         CustomTextField(
-            value = password,
-            onValueChange = { onPasswordChange(it) },
+            value = uiState.password,
+            onValueChange = { viewModel.onPasswordChange(it) },
             label = stringResource(R.string.label_pssword),
-            isError = isError,
-            isFormDisabled = !isLoading,
+            isError = uiState.loginError != null,
+            isFormDisabled = !uiState.isLoading,
             placeholder = stringResource(R.string.placeholder_pass),
             visualTransformation = PasswordVisualTransformation(),
             keyboardType = KeyboardType.Password
         )
-        Box(modifier = Modifier.offset(y = (-16).dp)) {
+        Box(modifier = Modifier.offset(y = (-24).dp)) {
             LabeledCheckbox(
-                isRemembered = isRemembered,
-                onRememberChange = onRememberChange,
+                isRemembered = uiState.isRemembered,
+                onRememberChange = { viewModel.onRememberPassToggle(it) },
             )
         }
 
@@ -94,11 +92,17 @@ fun LoginForm(
             subText = stringResource(R.string.prompt_acc_part2)
         )
         BottomTextSection(
-            btnText = stringResource(R.string.btn_login_txt),
+            btnText = stringResource(R.string.login_txt),
             isButtonEnabled = isButtonEnabled && !isLoading,
             promptText = promptText,
-            onTextClick = { onTextClick.invoke() },
-            onBtnClick = { onBtnClick.invoke() },
+            onLoginTextClick = {
+                navController.navigate(ScreenRoutes.RegisterScreen.route)
+            },
+            onBtnClick = {
+                viewModel.onLogin {
+                    navController.navigate(ScreenRoutes.ConsultationNav.route)
+                }
+            },
         )
     }
 }

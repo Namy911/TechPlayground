@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.wpay.common.navigation.ScreenRoutes
+import com.wpay.core.navigation.ScreenRoutes
 import com.wpay.medibook.ui.screens.book_consultation.BookAppointmentScreen
 import com.wpay.medibook.ui.screens.consultation.AppointmentScreen
 

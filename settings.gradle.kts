@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 rootProject.name = "tech_playground"
 include(":app")
 include(":feature:userStatistics")
-include(":common")
+include(":core")
 include(":feature:profile")
 include(":feature:mediBook")
 include(":feature:medHistory")

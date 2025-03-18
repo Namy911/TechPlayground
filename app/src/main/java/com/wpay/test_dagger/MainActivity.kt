@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.wpay.common.ui.theme.Med_Access_Theme
+import com.wpay.core.ui.theme.MedAccessTheme
 import com.wpay.test_dagger.ui.navigation.RootNav
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            Med_Access_Theme {
+            MedAccessTheme {
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()

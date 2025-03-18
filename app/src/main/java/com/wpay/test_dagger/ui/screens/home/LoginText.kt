@@ -12,8 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.wpay.common.navigation.ScreenRoutes
-import com.wpay.common.ui.extensions.getStyledText
+import com.wpay.core.navigation.ScreenRoutes
+import com.wpay.core.ui.extensions.getStyledText
 import com.wpay.profile.R
 
 @Composable

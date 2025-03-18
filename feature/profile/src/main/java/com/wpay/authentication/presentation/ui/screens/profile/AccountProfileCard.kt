@@ -10,10 +10,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.wpay.common.ui.theme.btnBackgroundColor
+import com.wpay.core.ui.theme.btnBackgroundColor
 import com.wpay.authentication.data.model.UserProfileData
-import com.wpay.common.data.model.SimpleButtonConfigImp
-import com.wpay.common.ui.components.InfoCard
+import com.wpay.core.data.model.SimpleButtonConfigImp
+import com.wpay.core.ui.components.InfoCard
 
 @Composable
 fun PersonalInfoScreen(

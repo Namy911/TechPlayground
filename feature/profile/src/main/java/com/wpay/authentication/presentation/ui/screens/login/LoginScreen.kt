@@ -14,14 +14,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.wpay.authentication.presentation.viewmodel.AuthViewModel
-import com.wpay.common.navigation.ScreenRoutes
+import com.wpay.authentication.presentation.viewmodel.LoginViewModel
+import com.wpay.core.navigation.ScreenRoutes
 
 @Composable
 fun LoginScreen(
     navController: NavHostController,
     snackbarHostState: SnackbarHostState,
-    viewModel: AuthViewModel = hiltViewModel(),
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val isButtonEnabled = uiState.login.isNotBlank() && uiState.password.isNotBlank()
@@ -38,27 +38,12 @@ fun LoginScreen(
             .fillMaxSize()
             .padding(WindowInsets.statusBars.asPaddingValues()),
     ) {
-
         LoginForm(
-            email = uiState.login,
+            navController = navController,
+            uiState = uiState,
+            viewModel = viewModel,
             isButtonEnabled = isButtonEnabled,
-            isRemembered = uiState.isRemembered,
-            password = uiState.password,
-            isError = uiState.loginError != null,
             isLoading = uiState.isLoading,
-            onEmailChange = { viewModel.onEmailChange(it) },
-            onPasswordChange = { viewModel.onPasswordChange(it) },
-            onBtnClick = {
-                viewModel.onLogin {
-                    navController.navigate(ScreenRoutes.ConsultationNav.route)
-                }
-            },
-            onTextClick = {
-                navController.navigate(ScreenRoutes.RegisterScreen.route)
-            },
-            onRememberChange = {
-                viewModel.onRememberPassToggle(it)
-            }
         )
     }
 }

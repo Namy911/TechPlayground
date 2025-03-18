@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">wpay</string>
-    <string name="login_text">Loghiază-te</string>
-    <string name="account_prompt_text">Încă nu ai un cont nou?</string>
-    <string name="create_new_account_btn_text">Crează un cont nou</string>
-    <string name="consultation_doctor_message">Ai nevoie de o consultație\nla medicul de familie?</string>
-    <string name="welcome_message">Bine ai venit!</string>
-    <string name="prompt_acc_part1">Încă nu ai un cont?</string>
-    <string name="prompt_acc_part2">Înregistrează-te</string>
+    <string name="login_text">Log in</string>
+    <string name="account_prompt_text">Don\'t have a new account yet?</string>
+    <string name="create_new_account_btn_text">Create a new account</string>
+    <string name="consultation_doctor_message">Do you need a consultation\nwith your family doctor?</string>
+    <string name="welcome_message">Welcome!</string>
+    <string name="prompt_acc_part1">Don\'t have an account?</string>
+    <string name="prompt_acc_part2">Sign up</string>
     <string name="placeholder_pass">********</string>
-    <string name="login_header">Logare</string>
+    <string name="login_header">Login</string>
     <string name="labe_email">Email</string>
-    <string name="label_pssword">Parola</string>
-    <string name="btn_login_txt">Intră în cont</string>
+    <string name="labe_name">Name, Surname</string>
+    <string name="label_pssword">Password</string>
+    <string name="label_pssword_confim">Confirm Password</string>
+    <string name="login_txt">Log in</string>
     <string name="remember_pass_txt">Remember me</string>
+    <string name="register_prompt_first">Already have an account?</string>
+    <string name="btn_text_register">Add New User</string>
+    <string name="terms_txt_first">Accept</string>
+    <string name="terms_txt_second">the terms and conditions</string>
+    <string name="txt_registration_header">Registration</string>
 </resources>

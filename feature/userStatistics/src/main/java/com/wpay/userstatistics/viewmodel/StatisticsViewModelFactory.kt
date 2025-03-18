@@ -2,8 +2,8 @@ package com.wpay.userstatistics.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.wpay.common.util.DispatcherProvider
-import com.wpay.common.data.repository.StatisticsRepository
+import com.wpay.core.util.DispatcherProvider
+import com.wpay.core.data.repository.StatisticsRepository
 
 class StatisticsViewModelFactory(
     private val repository: StatisticsRepository,

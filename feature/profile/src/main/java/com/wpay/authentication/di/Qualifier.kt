@@ -4,8 +4,20 @@ import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class EmailValidator
+annotation class EmailValidatorQualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class PasswordValidator
+annotation class PasswordValidatorQualifier
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class TermsValidatorQualifier
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class MatchingPassValidatorQualifier
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class FullNameValidatorQualifier

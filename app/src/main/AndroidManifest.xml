@@ -32,7 +32,7 @@
         </activity>
 
         <service
-            android:name="com.wpay.common.data.remote.SessionTrackingService"
+            android:name="com.wpay.core.data.remote.SessionTrackingService"
             android:foregroundServiceType="location"
             android:exported="false">
         </service>
