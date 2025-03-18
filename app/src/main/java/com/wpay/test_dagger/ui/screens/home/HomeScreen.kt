@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.wpay.common.ui.theme.primaryColor
+import com.wpay.core.ui.theme.primaryColor
 import com.wpay.profile.R
 
 @Composable

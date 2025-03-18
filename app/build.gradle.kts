@@ -48,7 +48,7 @@ dependencies {
     implementation(project(":feature:mediBook"))
     implementation(project(":feature:mediBook"))
     implementation(project(":feature:medHistory"))
-    implementation(project(":common"))
+    implementation(project(":core"))
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)

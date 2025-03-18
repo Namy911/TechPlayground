@@ -13,13 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.wpay.common.ui.theme.btnBackgroundColor
-import com.wpay.common.ui.theme.primaryColor
-import com.wpay.common.R
-import com.wpay.common.data.model.ResultButtonConfigImp
-import com.wpay.common.data.model.SimpleButtonConfigImp
-import com.wpay.common.navigation.ScreenRoutes
-import com.wpay.common.ui.components.InfoCard
+import com.wpay.core.ui.theme.btnBackgroundColor
+import com.wpay.core.ui.theme.primaryColor
+import com.wpay.core.R
+import com.wpay.core.data.model.ResultButtonConfigImp
+import com.wpay.core.data.model.SimpleButtonConfigImp
+import com.wpay.core.navigation.ScreenRoutes
+import com.wpay.core.ui.components.InfoCard
 import com.wpay.medibook.R.drawable
 
 @Composable

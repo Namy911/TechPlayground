@@ -2,8 +2,8 @@ package com.wpay.test_dagger.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wpay.common.util.DispatcherProvider
-import com.wpay.common.util.Result
+import com.wpay.core.util.DispatcherProvider
+import com.wpay.core.util.Result
 import com.wpay.test_dagger.data.model.User
 import com.wpay.test_dagger.repository.UserRepository
 import com.wpay.test_dagger.util.NetworkManager

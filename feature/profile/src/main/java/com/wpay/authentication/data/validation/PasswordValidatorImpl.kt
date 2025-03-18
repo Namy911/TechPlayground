@@ -1,7 +1,7 @@
 package com.wpay.authentication.data.validation
 
-import com.wpay.common.domain.validation.ValidationResult
-import com.wpay.common.domain.validation.Validator
+import com.wpay.core.domain.validation.ValidationResult
+import com.wpay.core.domain.validation.Validator
 import javax.inject.Inject
 
 class PasswordValidatorImpl @Inject constructor() : Validator<String> {

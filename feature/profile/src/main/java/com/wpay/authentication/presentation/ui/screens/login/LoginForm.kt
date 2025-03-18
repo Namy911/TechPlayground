@@ -20,9 +20,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.wpay.authentication.presentation.ui.screens.registration.BottomTextSection
 import com.wpay.authentication.presentation.ui.screens.registration.ScreenHeader
-import com.wpay.common.ui.components.CustomTextField
-import com.wpay.common.ui.extensions.getStyledText
-import com.wpay.common.ui.theme.primaryColor
+import com.wpay.core.ui.components.CustomTextField
+import com.wpay.core.ui.extensions.getStyledText
+import com.wpay.core.ui.theme.primaryColor
 import com.wpay.profile.R
 
 @Composable

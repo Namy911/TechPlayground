@@ -8,7 +8,7 @@ import androidx.navigation.navigation
 import com.wpay.authentication.presentation.ui.screens.login.LoginScreen
 import com.wpay.authentication.presentation.ui.screens.profile.CreateAccountProfileScreen
 import com.wpay.authentication.presentation.ui.screens.registration.RegisterScreen
-import com.wpay.common.navigation.ScreenRoutes
+import com.wpay.core.navigation.ScreenRoutes
 
 fun NavGraphBuilder.AuthNav(
     navController: NavHostController,

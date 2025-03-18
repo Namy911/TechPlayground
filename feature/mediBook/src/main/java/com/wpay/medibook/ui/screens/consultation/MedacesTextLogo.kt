@@ -10,7 +10,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.wpay.common.ui.theme.primaryColor
+import com.wpay.core.ui.theme.primaryColor
 
 @Composable
 fun MedacesTextLogo() {

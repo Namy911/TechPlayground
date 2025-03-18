@@ -4,10 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wpay.authentication.data.model.LoginUiState
 import com.wpay.authentication.data.repository.AuthRepository
-import com.wpay.common.domain.repository.UserPreferencesRepository
-import com.wpay.common.util.Result
+import com.wpay.core.domain.repository.UserPreferencesRepository
+import com.wpay.core.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,11 +23,6 @@ class AuthViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
-//        init {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            authRepository.initUsers()
-//        }
-//    }
     init {
         viewModelScope.launch {
             _uiState.update {
@@ -45,7 +39,7 @@ class AuthViewModel @Inject constructor(
         _uiState.update { currentState ->
             currentState.copy(
                 login = newLogin,
-                loginError = currentState.let { null }
+                loginError = currentState.loginError?.let { null }
             )
         }
     }
@@ -54,7 +48,7 @@ class AuthViewModel @Inject constructor(
         _uiState.update { currentState ->
             currentState.copy(
                 password = newPassword,
-                loginError = currentState.let { null }
+                loginError = currentState.loginError?.let { null }
             )
         }
     }
@@ -99,6 +93,10 @@ class AuthViewModel @Inject constructor(
     }
 
     fun clearLoginError() {
-        _uiState.value = _uiState.value.copy(loginError = null)
+        _uiState.update { currentState ->
+            currentState.copy(
+                loginError = currentState.loginError?.let { null }
+            )
+        }
     }
 }

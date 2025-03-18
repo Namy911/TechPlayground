@@ -31,12 +31,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.wpay.common.navigation.ScreenRoutes
-import com.wpay.common.util.Result
+import com.wpay.core.navigation.ScreenRoutes
+import com.wpay.core.util.Result
 import com.wpay.test_dagger.data.model.User
 import com.wpay.test_dagger.ui.viewmodel.UserViewModel
-import com.wpay.common.data.remote.SessionTrackingService
-import com.wpay.common.data.remote.SessionTrackingService.Companion.createSessionTrackingIntent
+import com.wpay.core.data.remote.SessionTrackingService
+import com.wpay.core.data.remote.SessionTrackingService.Companion.createSessionTrackingIntent
 
 @Composable
 fun UserListScreen(viewModel: UserViewModel, navController: NavHostController) {

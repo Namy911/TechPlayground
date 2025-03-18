@@ -7,8 +7,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.wpay.common.ui.components.MedicalCardItem
-import com.wpay.common.ui.components.sampleUsers
+import com.wpay.core.ui.components.MedicalCardItem
+import com.wpay.core.ui.components.sampleUsers
 
 
 @Composable

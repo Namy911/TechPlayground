@@ -25,7 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.wpay.common.util.Result
+import com.wpay.core.util.Result
 import com.wpay.test_dagger.ui.viewmodel.UserViewModel
 import com.wpay.userstatistics.viewmodel.StatisticsViewModel
 

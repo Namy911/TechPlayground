@@ -4,9 +4,9 @@ import com.wpay.authentication.data.repository.AuthRepository
 import com.wpay.authentication.data.validation.EmailValidatorImpl
 import com.wpay.authentication.data.validation.PasswordValidatorImpl
 import com.wpay.authentication.domain.repository.AuthRepositoryImp
-import com.wpay.common.domain.UserRepository
-import com.wpay.common.domain.validation.Validator
-import com.wpay.common.util.DispatcherProvider
+import com.wpay.core.domain.UserRepository
+import com.wpay.core.domain.validation.Validator
+import com.wpay.core.util.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

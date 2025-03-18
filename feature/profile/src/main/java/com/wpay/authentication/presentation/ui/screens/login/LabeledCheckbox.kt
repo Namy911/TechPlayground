@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.wpay.common.ui.theme.primaryColor
+import com.wpay.core.ui.theme.primaryColor
 import com.wpay.profile.R
 
 @Composable
