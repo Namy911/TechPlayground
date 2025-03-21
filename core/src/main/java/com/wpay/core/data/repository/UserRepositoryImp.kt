@@ -2,7 +2,7 @@ package com.wpay.core.data.repository
 
 import com.wpay.core.data.database.dao.UserDao
 import com.wpay.core.data.database.entity.User
-import com.wpay.core.domain.UserRepository
+import com.wpay.core.domain.repository.UserRepository
 import com.wpay.core.util.Result
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

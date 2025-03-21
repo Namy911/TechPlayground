@@ -7,32 +7,25 @@ import com.wpay.core.navigation.ScreenRoutes
 
 sealed class BottomNavItem(
     val route: String,
-    @DrawableRes val icoId: Int,
-    @StringRes val labelId: Int
+    @DrawableRes val icoId: Int = 0,
+    @StringRes val labelId: Int = 0,
+    val isVisibleTitle: Boolean = true,
 ) {
-    data object UserList : BottomNavItem(
-        ScreenRoutes.UserListScreenScreen.route,
-        R.drawable.paper,
-        R.string.user_list
+    data object BookAppointmentScreen : BottomNavItem(
+        ScreenRoutes.BookAppointmentScreen.route
     )
 
-    data object Consultation : BottomNavItem(
+    data object Appointment : BottomNavItem(
         ScreenRoutes.AppointmentScreen.route,
         R.drawable.calendar_24,
-        R.string.user_list
+        R.string.appointment,
+          false
     )
 
     data object MedHistory : BottomNavItem(
         ScreenRoutes.MedHistoryScreenScreen.route,
         R.drawable.group_20,
         R.string.medical_history
-    )
-
-
-    data object Settings : BottomNavItem(
-        ScreenRoutes.SettingsScreen.route,
-        R.drawable.paper,
-        R.string.settings
     )
 
     data object Profile : BottomNavItem(

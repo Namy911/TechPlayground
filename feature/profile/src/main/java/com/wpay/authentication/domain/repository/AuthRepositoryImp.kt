@@ -1,7 +1,7 @@
 package com.wpay.authentication.domain.repository
 
 import com.wpay.authentication.data.repository.AuthRepository
-import com.wpay.core.domain.UserRepository
+import com.wpay.core.domain.repository.UserRepository
 import com.wpay.core.util.DispatcherProvider
 import com.wpay.core.util.Result
 import kotlinx.coroutines.flow.catch

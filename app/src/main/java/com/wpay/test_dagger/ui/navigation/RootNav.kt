@@ -39,27 +39,22 @@ fun RootNav() {
     val snackbarHostState = remember { SnackbarHostState() }
 
     val bottomNavScreens = listOf(
-        BottomNavItem.Consultation,
-        BottomNavItem.Settings,
+        BottomNavItem.Appointment,
         BottomNavItem.MedHistory,
         BottomNavItem.Profile,
+        BottomNavItem.BookAppointmentScreen,
     )
+
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
 
-    val itemBar = when (currentDestination?.route) {
-        ScreenRoutes.BookAppointmentScreen.route -> BottomNavItem.Consultation
-        else -> bottomNavScreens.find { it.route == currentDestination?.route }
-    }
-
-    val showTitle = when (currentDestination?.route) {
-        ScreenRoutes.AppointmentScreen.route -> false
-        else -> true
+    val itemBar = bottomNavScreens.find { baseRoute ->
+        currentDestination?.route.orEmpty().startsWith(baseRoute.route)
     }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
-            if (showTitle && itemBar != null) {
+            if (itemBar?.isVisibleTitle == true) {
                 TopAppBar(title = {
                     Box(
                         modifier = Modifier
@@ -78,14 +73,14 @@ fun RootNav() {
             }
         },
         bottomBar = {
-            if (itemBar != null) {
-                BottomNavigationBar(navController, bottomNavScreens)
-            }
+            BottomNavigationBar(
+                navController = navController,
+                bottomNavList = bottomNavScreens.filter { it.icoId != 0 })
         },
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = ScreenRoutes.AuthNav.route,
+            startDestination = ScreenRoutes.ConsultationNav.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = ScreenRoutes.HomeScreen.route) {

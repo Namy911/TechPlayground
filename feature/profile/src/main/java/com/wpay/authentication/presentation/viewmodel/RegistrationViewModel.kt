@@ -10,7 +10,7 @@ import com.wpay.authentication.di.FullNameValidatorQualifier
 import com.wpay.authentication.di.MatchingPassValidatorQualifier
 import com.wpay.authentication.di.PasswordValidatorQualifier
 import com.wpay.authentication.di.TermsValidatorQualifier
-import com.wpay.core.domain.UserRepository
+import com.wpay.core.domain.repository.UserRepository
 import com.wpay.core.domain.validation.Validator
 import com.wpay.core.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,7 +42,8 @@ class RegistrationViewModel @Inject constructor(
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         viewModelScope.launch {
-            _uiEffect.emit(RegisterEffect.ShowSnackbar("Unexpected error occurred: ${throwable.localizedMessage}"))
+            _uiEffect.emit(
+                RegisterEffect.ShowSnackbar("Unexpected error occurred: ${throwable.message}"))
         }
     }
 

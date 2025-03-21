@@ -14,19 +14,16 @@ fun NavGraphBuilder.AppointmentNav(
     navController: NavHostController,
 ) {
     navigation(
-        startDestination = ScreenRoutes.AppointmentScreen.route,
+        startDestination = "${ScreenRoutes.AppointmentScreen.route}/1",
         route = ScreenRoutes.ConsultationNav.route
     ) {
         composable(
-            route = ScreenRoutes.AppointmentScreen.route
-        ){
-//            route = "${ScreenRoutes.AppointmentScreen.route}/{user}", arguments = listOf(
-//            navArgument("userName") {
-//                type = NavType.StringType
-//            }
-//        )) { backStackEntry ->
-//            val userName = backStackEntry.arguments?.getString("userName") ?: "Unknown"
-            AppointmentScreen( navigation = navController)
+            route = "${ScreenRoutes.AppointmentScreen.route}/{userId}", arguments = listOf(
+                navArgument("userId") { type = NavType.IntType },
+            )
+        ) { backStackEntry ->
+            val userId = backStackEntry.arguments?.getInt("userId") ?: 0
+            AppointmentScreen(userId, navigation = navController)
         }
         composable(
             route = "${ScreenRoutes.BookAppointmentScreen.route}/{activeFormId}", arguments = listOf(

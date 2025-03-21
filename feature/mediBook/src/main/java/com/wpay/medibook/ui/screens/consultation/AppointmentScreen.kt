@@ -16,19 +16,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.wpay.core.R.drawable
 import com.wpay.core.navigation.ScreenRoutes
 import com.wpay.core.ui.components.MedicalCardItem
 import com.wpay.core.ui.components.sampleUsers
-import com.wpay.core.ui.theme.primaryColor
-import com.wpay.core.ui.theme.textColor
 import com.wpay.medibook.R
+import com.wpay.medibook.viewmodel.AppointmentViewModel
 
 @Composable
-fun AppointmentScreen(userName: String = "Test", navigation: NavHostController) {
+fun AppointmentScreen(
+    userId: Int,
+    navigation: NavHostController,
+    viewModel: AppointmentViewModel = hiltViewModel(),
+) {
     Column(modifier = Modifier.padding(16.dp)) {
-        Text("Salut $userName", style = MaterialTheme.typography.headlineSmall)
+        Text("Salut userName", style = MaterialTheme.typography.headlineSmall)
 
         MedacesTextLogo()
 

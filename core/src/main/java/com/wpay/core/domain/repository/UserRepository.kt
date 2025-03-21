@@ -1,4 +1,4 @@
-package com.wpay.core.domain
+package com.wpay.core.domain.repository
 
 import com.wpay.core.data.database.entity.User
 import com.wpay.core.util.Result
