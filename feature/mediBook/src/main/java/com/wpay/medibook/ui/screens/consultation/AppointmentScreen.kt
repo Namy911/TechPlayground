@@ -21,12 +21,15 @@ import com.wpay.core.R.drawable
 import com.wpay.core.navigation.ScreenRoutes
 import com.wpay.core.ui.components.MedicalCardItem
 import com.wpay.core.ui.components.sampleUsers
+import com.wpay.core.ui.theme.primaryColor
+import com.wpay.core.ui.theme.textColor
 import com.wpay.medibook.R
 
 @Composable
-fun AppointmentScreen(navigation: NavHostController) {
+fun AppointmentScreen(userName: String = "Test", navigation: NavHostController) {
     Column(modifier = Modifier.padding(16.dp)) {
-        Text("Salut Grigore!", style = MaterialTheme.typography.headlineSmall)
+        Text("Salut $userName", style = MaterialTheme.typography.headlineSmall)
+
         MedacesTextLogo()
 
         Column(

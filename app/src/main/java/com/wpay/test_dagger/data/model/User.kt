@@ -12,7 +12,9 @@ data class User(
     fun toUserEntity(): User {
         return User(
             name = name, email = email,
-            password = "password"
+            password = "password",
+            id = 1,
+            surname = "TODO()"
         )
     }
 

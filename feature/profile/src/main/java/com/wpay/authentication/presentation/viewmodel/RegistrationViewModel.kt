@@ -10,7 +10,6 @@ import com.wpay.authentication.di.FullNameValidatorQualifier
 import com.wpay.authentication.di.MatchingPassValidatorQualifier
 import com.wpay.authentication.di.PasswordValidatorQualifier
 import com.wpay.authentication.di.TermsValidatorQualifier
-import com.wpay.core.data.database.entity.User
 import com.wpay.core.domain.UserRepository
 import com.wpay.core.domain.validation.Validator
 import com.wpay.core.util.Result
@@ -41,9 +40,9 @@ class RegistrationViewModel @Inject constructor(
     private val _uiEffect = MutableSharedFlow<RegisterEffect>(replay = 0, extraBufferCapacity = 1)
     val uiEffect: SharedFlow<RegisterEffect> = _uiEffect.asSharedFlow()
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         viewModelScope.launch {
-//            _effect.emit(RegisterEffect.ShowError("Failed to save user: ${throwable.localizedMessage}"))
+            _uiEffect.emit(RegisterEffect.ShowSnackbar("Unexpected error occurred: ${throwable.localizedMessage}"))
         }
     }
 
@@ -158,18 +157,20 @@ class RegistrationViewModel @Inject constructor(
     }
 
     private suspend fun insertUser(currentState: RegistrationState) {
-        val newUser = User(
+        val newUser = userRepository.insertUser(
+            fullName = currentState.name,
             email = currentState.email,
-            name = currentState.name,
             password = currentState.password
         )
-        when (userRepository.insertUser(newUser)) {
+        when (newUser) {
             is Result.Success -> {
-                _uiEffect.emit(RegisterEffect.NavigateToAppointmentScreen)
+                _uiEffect.emit(
+                    RegisterEffect.NavigateToAppointmentScreen(newUser.data)
+                )
             }
 
             is Result.Error -> {
-//                _effect.emit(RegisterEffect.ShowError(throwable.localizedMessage))
+                _uiEffect.emit(RegisterEffect.ShowSnackbar(newUser.message))
             }
 
             is Result.Loading -> {}

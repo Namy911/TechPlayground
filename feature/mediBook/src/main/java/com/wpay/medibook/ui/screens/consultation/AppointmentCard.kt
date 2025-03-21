@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.wpay.core.R
+import com.wpay.core.ui.theme.primaryColor
 
 @Composable
 fun AppointmentCard(
@@ -60,6 +61,7 @@ fun AppointmentCard(
         }
         Text(
             text = text,
+            color = primaryColor,
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(horizontal = 16.dp)
         )

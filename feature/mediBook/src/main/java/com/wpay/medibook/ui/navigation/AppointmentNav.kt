@@ -17,8 +17,16 @@ fun NavGraphBuilder.AppointmentNav(
         startDestination = ScreenRoutes.AppointmentScreen.route,
         route = ScreenRoutes.ConsultationNav.route
     ) {
-        composable(route = ScreenRoutes.AppointmentScreen.route) {
-            AppointmentScreen(navController)
+        composable(
+            route = ScreenRoutes.AppointmentScreen.route
+        ){
+//            route = "${ScreenRoutes.AppointmentScreen.route}/{user}", arguments = listOf(
+//            navArgument("userName") {
+//                type = NavType.StringType
+//            }
+//        )) { backStackEntry ->
+//            val userName = backStackEntry.arguments?.getString("userName") ?: "Unknown"
+            AppointmentScreen( navigation = navController)
         }
         composable(
             route = "${ScreenRoutes.BookAppointmentScreen.route}/{activeFormId}", arguments = listOf(
@@ -27,8 +35,7 @@ fun NavGraphBuilder.AppointmentNav(
                 })
         ) { backStackEntry ->
             val activeFormId = backStackEntry.arguments?.getInt("activeFormId") ?: 1
-
-            BookAppointmentScreen(activeFormId, navController)
+            BookAppointmentScreen(activeFormId = activeFormId, navController = navController)
         }
     }
 }

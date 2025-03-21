@@ -45,7 +45,7 @@ fun RegisterScreen(
                 )
 
                 is RegisterEffect.NavigateToAppointmentScreen -> navController.navigate(
-                    ScreenRoutes.AppointmentScreen.route
+                    "${ ScreenRoutes.AppointmentScreen.route }/${effect.user}"
                 )
 
                 is RegisterEffect.ShowSnackbar -> snackbarHostState.showSnackbar(effect.message)

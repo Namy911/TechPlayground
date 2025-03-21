@@ -7,10 +7,8 @@ import androidx.room.PrimaryKey
 data class User(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
+    val surname: String,
     val email: String,
     val password: String,
 ){
-    override fun toString(): String {
-        return "User(id=$id, name='$name', email='$email')"
-    }
 }

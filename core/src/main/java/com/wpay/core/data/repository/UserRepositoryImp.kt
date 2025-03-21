@@ -17,11 +17,35 @@ class UserRepositoryImp @Inject constructor(private val userDao: UserDao) : User
         }
     }
 
-    override suspend fun insertUser(user: User) = try {
-        userDao.insertUser(user)
-        Result.Success(Unit)
+    override suspend fun insertUser(fullName: String, email: String, password: String) = try {
+        val newUser = processAndInsertUser(fullName, email, password)
+        Result.Success(newUser)
     } catch (e: Exception) {
         Result.Error("Error inserting user: ${e.message}")
     }
 
+    private suspend fun processAndInsertUser(
+        fullName: String,
+        email: String,
+        password: String,
+    ): User {
+        val parts = fullName.trim().split(",")
+        val name = parts.firstOrNull() ?: ""
+        val surname = parts.drop(1).joinToString(" ")
+
+        if (name.isNotEmpty() && surname.isNotEmpty()) {
+            val newUser = User(
+                name = name,
+                surname = surname,
+                email = email,
+                password = password
+            )
+
+            userDao.insertUser(newUser)
+
+            return newUser
+        } else {
+            throw IllegalArgumentException("Invalid full name")
+        }
+    }
 }
