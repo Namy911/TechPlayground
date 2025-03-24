@@ -4,10 +4,22 @@ import com.wpay.core.data.database.dao.UserDao
 import com.wpay.core.data.database.entity.User
 import com.wpay.core.domain.repository.UserRepository
 import com.wpay.core.util.Result
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+//@Singleton
 class UserRepositoryImp @Inject constructor(private val userDao: UserDao) : UserRepository {
+    private val _userId = MutableStateFlow<Long?>(null)
+    override val userId: StateFlow<Long?> = _userId.asStateFlow()
+
+    override fun setUserId(id: Long) {
+        _userId.value = id
+    }
+
     override fun getUserProfile(login: String, password: String) = flow {
         val user = userDao.getUserProfile(email = login, password = password)
         user?.let {
@@ -41,7 +53,7 @@ class UserRepositoryImp @Inject constructor(private val userDao: UserDao) : User
                 password = password
             )
 
-            val insertedId  = userDao.insertUser(newUser)
+            val insertedId = userDao.insertUser(newUser)
             val insertedUser = newUser.copy(
                 id = insertedId
             )

@@ -15,7 +15,6 @@ fun NavGraphBuilder.AuthNav(
     snackbarHostState: SnackbarHostState,
     onNavigateBack: () -> Unit,
     handleExit: () -> Unit,
-    assignUserId: (Long) -> Unit,
 ) {
     navigation(
         startDestination = ScreenRoutes.RegisterScreen.route,
@@ -28,7 +27,6 @@ fun NavGraphBuilder.AuthNav(
             RegisterScreen(
                 navController = navController,
                 snackbarHostState = snackbarHostState,
-                assignUserId = assignUserId
             )
         }
         composable(route = ScreenRoutes.AccountScreen.route) {

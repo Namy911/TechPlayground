@@ -13,14 +13,13 @@ import com.wpay.medibook.ui.screens.consultation.AppointmentScreen
 
 fun NavGraphBuilder.AppointmentNav(
     navController: NavHostController,
-    retrieveUserId: ()-> Long?
 ) {
     navigation(
         startDestination = ScreenRoutes.AppointmentScreen.route,
         route = ScreenRoutes.ConsultationNav.route
     ) {
         composable(route = ScreenRoutes.AppointmentScreen.route) {
-            AppointmentScreen(retrieveUserId = retrieveUserId, navigation = navController)
+            AppointmentScreen(navigation = navController)
         }
         composable(
             route = "${ScreenRoutes.BookAppointmentScreen.route}/{activeFormId}",

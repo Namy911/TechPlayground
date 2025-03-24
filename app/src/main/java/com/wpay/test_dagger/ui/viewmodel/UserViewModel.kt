@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.wpay.core.util.DispatcherProvider
 import com.wpay.core.util.Result
 import com.wpay.test_dagger.data.model.User
-import com.wpay.test_dagger.repository.UserRepository
+import com.wpay.test_dagger.data.repository.UserRepository2
 import com.wpay.test_dagger.util.NetworkManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class UserViewModel(
-    private val repository: UserRepository,
+    private val repository: UserRepository2,
     private val dispatcher: DispatcherProvider,
     networkManager: NetworkManager,
 ) : ViewModel() {

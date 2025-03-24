@@ -31,11 +31,10 @@ import com.wpay.medhistory.ui.navigation.MedHistoryNav
 import com.wpay.medibook.ui.navigation.AppointmentNav
 import com.wpay.test_dagger.ui.screens.BottomNavigationBar
 import com.wpay.test_dagger.ui.screens.home.HomeScreen
-import com.wpay.test_dagger.ui.viewmodel.RootViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RootNav(rootViewModel: RootViewModel) {
+fun RootNav() {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -89,16 +88,12 @@ fun RootNav(rootViewModel: RootViewModel) {
             }
             AuthNav(
                 navController = navController,
-                assignUserId = { id -> rootViewModel.setUserId(id) },
                 snackbarHostState = snackbarHostState,
                 onNavigateBack = { finishAndNavigateBack(navController) },
                 handleExit = { handleExit(navController) },
             )
 
-            AppointmentNav(
-                navController = navController,
-                retrieveUserId = { rootViewModel.userId.value }
-            )
+            AppointmentNav(navController)
             MedHistoryNav()
         }
     }

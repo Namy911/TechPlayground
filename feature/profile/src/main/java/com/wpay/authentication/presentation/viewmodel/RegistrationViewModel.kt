@@ -165,6 +165,7 @@ class RegistrationViewModel @Inject constructor(
         )
         when (newUser) {
             is Result.Success -> {
+                userRepository.setUserId(newUser.data.id)
                 _uiEffect.emit(
                     RegisterEffect.NavigateToAppointmentScreen(newUser.data)
                 )

@@ -1,10 +1,11 @@
 package com.wpay.medibook.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.wpay.core.data.database.entity.Appointment
-import com.wpay.core.data.database.entity.Prescription
+import androidx.lifecycle.viewModelScope
 import com.wpay.core.domain.repository.ConsultationRepository
 import com.wpay.core.domain.repository.PrescriptionRepository
+import com.wpay.core.domain.repository.UserRepository
+
 import com.wpay.medibook.data.model.AppointmentEffect
 import com.wpay.medibook.data.model.AppointmentEvent
 import com.wpay.medibook.data.model.AppointmentSate
@@ -15,12 +16,15 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AppointmentViewModel @Inject constructor(
     private val consultationRepo: ConsultationRepository,
     private val prescriptionRepository: PrescriptionRepository,
+    private val userRepo: UserRepository,
 ) : ViewModel(){
 
     private val _uiState = MutableStateFlow(AppointmentSate())
@@ -29,6 +33,17 @@ class AppointmentViewModel @Inject constructor(
     private val _uiEffect = MutableSharedFlow<AppointmentEffect>(replay = 0, extraBufferCapacity = 1)
     val uiEffect: SharedFlow<AppointmentEffect> = _uiEffect.asSharedFlow()
 
+//    val userId: StateFlow<Long?> = userRepo.userId
+
+    init {
+        viewModelScope.launch {
+            userRepo.userId.collect { id ->
+                _uiState.update {
+                    it.copy(userName = id?.toString() ?: "Default Name")
+                }
+            }
+        }
+    }
 
     fun onEvent(event: AppointmentEvent){
 

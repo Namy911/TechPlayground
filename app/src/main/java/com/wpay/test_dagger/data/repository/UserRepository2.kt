@@ -1,4 +1,4 @@
-package com.wpay.test_dagger.repository
+package com.wpay.test_dagger.data.repository
 
 import com.wpay.core.util.Result
 import com.wpay.test_dagger.data.model.FakeApiService
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.last
 
-class UserRepository(
+class UserRepository2(
     private val apiService: FakeApiService,
     private val repository: StatisticsRepository,
 ) {

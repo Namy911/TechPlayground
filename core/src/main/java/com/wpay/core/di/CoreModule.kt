@@ -66,6 +66,7 @@ object CoreModule {
         return database.userDao()
     }
 
+    @Singleton
     @Provides
     fun provideUserRepository(userDao: UserDao): UserRepository {
         return UserRepositoryImp(userDao)

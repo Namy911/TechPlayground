@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,9 +30,10 @@ import com.wpay.medibook.viewmodel.AppointmentViewModel
 @Composable
 fun AppointmentScreen(
     navigation: NavHostController,
-    retrieveUserId: () -> Long?,
     viewModel: AppointmentViewModel = hiltViewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Column(modifier = Modifier.padding(16.dp)) {
         Text("Salut userName", style = MaterialTheme.typography.headlineSmall)
 
@@ -42,7 +45,7 @@ fun AppointmentScreen(
                 .padding(16.dp)
         ) {
             Text(
-                text = "Cu ce va pot ajuta ? ${retrieveUserId()}",
+                text = "Cu ce va pot ajuta ? ${uiState.userName}",
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(vertical = 24.dp)
             )
