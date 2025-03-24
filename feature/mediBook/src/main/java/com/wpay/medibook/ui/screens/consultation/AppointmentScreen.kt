@@ -27,8 +27,8 @@ import com.wpay.medibook.viewmodel.AppointmentViewModel
 
 @Composable
 fun AppointmentScreen(
-    userId: Int,
     navigation: NavHostController,
+    retrieveUserId: () -> Long?,
     viewModel: AppointmentViewModel = hiltViewModel(),
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
@@ -42,7 +42,7 @@ fun AppointmentScreen(
                 .padding(16.dp)
         ) {
             Text(
-                text = "Cu ce va pot ajuta ?",
+                text = "Cu ce va pot ajuta ? ${retrieveUserId()}",
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(vertical = 24.dp)
             )

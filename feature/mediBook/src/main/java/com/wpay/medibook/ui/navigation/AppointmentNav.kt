@@ -1,5 +1,6 @@
 package com.wpay.medibook.ui.navigation
 
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,21 +13,18 @@ import com.wpay.medibook.ui.screens.consultation.AppointmentScreen
 
 fun NavGraphBuilder.AppointmentNav(
     navController: NavHostController,
+    retrieveUserId: ()-> Long?
 ) {
     navigation(
-        startDestination = "${ScreenRoutes.AppointmentScreen.route}/1",
+        startDestination = ScreenRoutes.AppointmentScreen.route,
         route = ScreenRoutes.ConsultationNav.route
     ) {
-        composable(
-            route = "${ScreenRoutes.AppointmentScreen.route}/{userId}", arguments = listOf(
-                navArgument("userId") { type = NavType.IntType },
-            )
-        ) { backStackEntry ->
-            val userId = backStackEntry.arguments?.getInt("userId") ?: 0
-            AppointmentScreen(userId, navigation = navController)
+        composable(route = ScreenRoutes.AppointmentScreen.route) {
+            AppointmentScreen(retrieveUserId = retrieveUserId, navigation = navController)
         }
         composable(
-            route = "${ScreenRoutes.BookAppointmentScreen.route}/{activeFormId}", arguments = listOf(
+            route = "${ScreenRoutes.BookAppointmentScreen.route}/{activeFormId}",
+            arguments = listOf(
                 navArgument("activeFormId") {
                     type = NavType.IntType
                 })

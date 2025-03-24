@@ -31,14 +31,15 @@ import com.wpay.medhistory.ui.navigation.MedHistoryNav
 import com.wpay.medibook.ui.navigation.AppointmentNav
 import com.wpay.test_dagger.ui.screens.BottomNavigationBar
 import com.wpay.test_dagger.ui.screens.home.HomeScreen
+import com.wpay.test_dagger.ui.viewmodel.RootViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RootNav() {
+fun RootNav(rootViewModel: RootViewModel) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val bottomNavScreens = listOf(
+    val bottomNavScreens = mutableListOf(
         BottomNavItem.Appointment,
         BottomNavItem.MedHistory,
         BottomNavItem.Profile,
@@ -80,7 +81,7 @@ fun RootNav() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = ScreenRoutes.ConsultationNav.route,
+            startDestination = ScreenRoutes.AuthNav.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = ScreenRoutes.HomeScreen.route) {
@@ -88,12 +89,16 @@ fun RootNav() {
             }
             AuthNav(
                 navController = navController,
+                assignUserId = { id -> rootViewModel.setUserId(id) },
                 snackbarHostState = snackbarHostState,
                 onNavigateBack = { finishAndNavigateBack(navController) },
                 handleExit = { handleExit(navController) },
             )
 
-            AppointmentNav(navController)
+            AppointmentNav(
+                navController = navController,
+                retrieveUserId = { rootViewModel.userId.value }
+            )
             MedHistoryNav()
         }
     }

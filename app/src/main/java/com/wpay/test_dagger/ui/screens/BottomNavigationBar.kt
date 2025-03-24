@@ -31,7 +31,8 @@ fun BottomNavigationBar(navController: NavHostController, bottomNavList: List<Bo
                 label = { Text(stringResource(item.labelId)) },
                 selected = currentRoute == item.route,
                 onClick = {
-                    navController.navigate(item.route) {
+                    val dynamicRoute = item.route.replace("{userId}", "123")
+                    navController.navigate(dynamicRoute) {
                         popUpTo(navController.graph.startDestinationId) { saveState = true }
                         launchSingleTop = true
                         restoreState = true

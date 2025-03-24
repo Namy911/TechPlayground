@@ -13,7 +13,7 @@ interface UserDao {
     suspend fun getUserProfile(email: String, password: String): User?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(user: User)
+    suspend fun insertUser(user: User): Long
 
     @Query("SELECT * FROM users WHERE id = :userId")
     fun getUserById(userId: Int): Flow<User?>

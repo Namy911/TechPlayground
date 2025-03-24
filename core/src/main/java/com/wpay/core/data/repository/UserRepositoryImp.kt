@@ -41,9 +41,12 @@ class UserRepositoryImp @Inject constructor(private val userDao: UserDao) : User
                 password = password
             )
 
-            userDao.insertUser(newUser)
+            val insertedId  = userDao.insertUser(newUser)
+            val insertedUser = newUser.copy(
+                id = insertedId
+            )
 
-            return newUser
+            return insertedUser
         } else {
             throw IllegalArgumentException("Invalid full name")
         }

@@ -19,7 +19,7 @@ class UserRepository(
 
         val dbUsers = repository.getAllUsers().firstOrNull()?.let { result ->
             if (result is Result.Success)
-                result.data.map { User(it.id, it.name, it.email) } else emptyList()
+                result.data.map { User(it.id.toInt(), it.name, it.email) } else emptyList()
         }
         delay(2000)
         if (isConnected && !dbUsers.isNullOrEmpty()) {
@@ -50,7 +50,7 @@ class UserRepository(
     fun fetchUserDetails(userId: Int, isConnected: Boolean) = flow {
         val userInfo = repository.getUser(userId).firstOrNull()?.let { result ->
             if (result is Result.Success) {
-                val user = User(result.data.id, result.data.name, result.data.email)
+                val user = User(result.data.id.toInt(), result.data.name, result.data.email)
                 if (isConnected) {
                     apiService.addUser(listOf(user))
                 }

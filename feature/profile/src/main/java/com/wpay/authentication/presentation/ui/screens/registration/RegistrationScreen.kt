@@ -32,6 +32,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun RegisterScreen(
     navController: NavHostController,
     snackbarHostState: SnackbarHostState,
+    assignUserId: (Long) -> Unit,
     viewModel: RegistrationViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -44,9 +45,10 @@ fun RegisterScreen(
                     ScreenRoutes.LoginScreen.route
                 )
 
-                is RegisterEffect.NavigateToAppointmentScreen -> navController.navigate(
-                    "${ ScreenRoutes.AppointmentScreen.route }/${effect.user.id}"
-                )
+                is RegisterEffect.NavigateToAppointmentScreen -> {
+                    assignUserId(effect.user.id)
+                    navController.navigate(ScreenRoutes.AppointmentScreen.route)
+                }
 
                 is RegisterEffect.ShowSnackbar -> snackbarHostState.showSnackbar(effect.message)
 
