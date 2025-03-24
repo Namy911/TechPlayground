@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.wpay.authentication.presentation.viewmodel.LoginViewModel
-import com.wpay.core.navigation.ScreenRoutes
 
 @Composable
 fun LoginScreen(

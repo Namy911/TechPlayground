@@ -13,17 +13,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.wpay.core.ui.theme.btnBackgroundColor
-import com.wpay.core.ui.theme.primaryColor
 import com.wpay.core.R
 import com.wpay.core.data.model.ResultButtonConfigImp
 import com.wpay.core.data.model.SimpleButtonConfigImp
 import com.wpay.core.navigation.ScreenRoutes
 import com.wpay.core.ui.components.InfoCard
+import com.wpay.core.ui.theme.btnBackgroundColor
+import com.wpay.core.ui.theme.primaryColor
 import com.wpay.medibook.R.drawable
+import com.wpay.medibook.data.model.RequestAppointment.REQUEST_PRESCRIPTION
+import com.wpay.medibook.data.model.RequestAppointment.SCHEDULE_CONSULTATION
 
 @Composable
-fun BookAppointmentScreen(activeFormId: Int, navController: NavHostController) {
+fun BookAppointmentScreen(actionId: String, navController: NavHostController) {
     val date = remember { mutableStateOf("") }
     val specialist = remember { mutableStateOf("") }
 
@@ -34,10 +36,10 @@ fun BookAppointmentScreen(activeFormId: Int, navController: NavHostController) {
     val showDialog = remember { mutableStateOf(false) }
     val userChose = remember { mutableStateOf("") }
 
-    var expandedCard by remember { mutableStateOf<Int?>(activeFormId) }
+    var expandedCard by remember { mutableStateOf<String?>(actionId) }
 
     if (showDialog.value) {
-        val data = if (expandedCard == 1) {
+        val data = if (expandedCard == SCHEDULE_CONSULTATION.value) {
             Pair(drawable.group_58, "Programarea a fost completată cu succes")
         } else {
             Pair(drawable.group_57, "Receta a fost trimisă cu succes")
@@ -63,10 +65,10 @@ fun BookAppointmentScreen(activeFormId: Int, navController: NavHostController) {
         BookConsultationCard(
             text = "Programeazate o \nconsultatie",
             imageId = R.drawable.calendar_24,
-            activeFormImageId = if (expandedCard == 1) drawable.navigate_next_2 else R.drawable.navigate_next,
-            onClick = { expandedCard = if (expandedCard == 1) null else 1 },
+            activeFormImageId = if (expandedCard == SCHEDULE_CONSULTATION.value) drawable.navigate_next_2 else R.drawable.navigate_next,
+            onClick = { expandedCard = if (expandedCard == SCHEDULE_CONSULTATION.value) null else SCHEDULE_CONSULTATION.value },
             activeFormSlot = {
-                if (expandedCard == 1) {
+                if (expandedCard == SCHEDULE_CONSULTATION.value) {
                     InfoCard(
                         route = "consutation",
                         fields = listOf(
@@ -97,10 +99,10 @@ fun BookAppointmentScreen(activeFormId: Int, navController: NavHostController) {
         BookConsultationCard(
             text = "Solicita o\nreceta",
             imageId = drawable.book_24,
-            activeFormImageId = if (expandedCard == 2) drawable.navigate_next_2 else R.drawable.navigate_next,
-            onClick = { expandedCard = if (expandedCard == 2) null else 2 },
+            activeFormImageId = if (expandedCard == REQUEST_PRESCRIPTION.value) drawable.navigate_next_2 else R.drawable.navigate_next,
+            onClick = { expandedCard = if (expandedCard == REQUEST_PRESCRIPTION.value) null else REQUEST_PRESCRIPTION.value },
             activeFormSlot = {
-                if (expandedCard == 2) {
+                if (expandedCard == REQUEST_PRESCRIPTION.value) {
                     InfoCard(
                         route = "prescription",
                         fields = listOf(

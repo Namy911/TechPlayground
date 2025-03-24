@@ -17,12 +17,12 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.wpay.core.R.drawable
 import com.wpay.core.navigation.ScreenRoutes
@@ -30,7 +30,13 @@ import com.wpay.core.ui.components.MedicalCardItem
 import com.wpay.core.ui.components.sampleUsers
 import com.wpay.core.ui.theme.primaryColor
 import com.wpay.medibook.R
+import com.wpay.medibook.data.model.AppointmentEffect
+import com.wpay.medibook.data.model.AppointmentEvent
+import com.wpay.medibook.data.model.RequestAppointment
+import com.wpay.medibook.data.model.RequestAppointment.REQUEST_PRESCRIPTION
+import com.wpay.medibook.data.model.RequestAppointment.SCHEDULE_CONSULTATION
 import com.wpay.medibook.viewmodel.AppointmentViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun AppointmentScreen(
@@ -39,18 +45,31 @@ fun AppointmentScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    if (uiState.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .size(80.dp)
-                    .align(Alignment.Center),
-                color = primaryColor,
-            )
+    LaunchedEffect(Unit) {
+        viewModel.uiEffect.collectLatest { effect ->
+            when (effect) {
+                is AppointmentEffect.RequestPrescription -> navigation.navigate(
+                    "${ScreenRoutes.BookAppointmentScreen.route}/${REQUEST_PRESCRIPTION.value}"
+                )
+
+                is AppointmentEffect.ScheduleConsultation -> navigation.navigate(
+                    "${ScreenRoutes.BookAppointmentScreen.route}/${SCHEDULE_CONSULTATION.value}"
+                )
+            }
         }
-    } else {
+    }
+//    if (uiState.isLoading) {
+//        Box(
+//            modifier = Modifier.fillMaxSize()
+//        ) {
+//            CircularProgressIndicator(
+//                modifier = Modifier
+//                    .size(80.dp)
+//                    .align(Alignment.Center),
+//                color = primaryColor,
+//            )
+//        }
+//    } else {
         Column(modifier = Modifier.padding(16.dp)) {
             Text("Salut ${uiState.userName}", style = MaterialTheme.typography.headlineSmall)
 
@@ -79,7 +98,9 @@ fun AppointmentScreen(
                             .height(148.dp)
                             .width(148.dp)
                             .clickable {
-                                navigation.navigate("${ScreenRoutes.BookAppointmentScreen.route}/1")
+                                viewModel.onEvent(AppointmentEvent.OnRequestActionClick(
+                                    SCHEDULE_CONSULTATION.value
+                                ))
                             }
                     )
                     AppointmentCard(
@@ -90,7 +111,9 @@ fun AppointmentScreen(
                             .height(148.dp)
                             .width(148.dp)
                             .clickable {
-                                navigation.navigate("${ScreenRoutes.BookAppointmentScreen.route}/2")
+                                viewModel.onEvent(AppointmentEvent.OnRequestActionClick(
+                                    REQUEST_PRESCRIPTION.value
+                                ))
                             }
                     )
                 }
@@ -110,4 +133,4 @@ fun AppointmentScreen(
         }
     }
 
-}
+//}

@@ -48,7 +48,7 @@ fun RootNav() {
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
 
     val itemBar = bottomNavScreens.find { baseRoute ->
-        currentDestination?.route.orEmpty().startsWith(baseRoute.route)
+        currentDestination?.route.orEmpty().startsWith(baseRoute.route) && baseRoute.icoId != 0
     }
 
     Scaffold(
@@ -80,7 +80,7 @@ fun RootNav() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = ScreenRoutes.AuthNav.route,
+            startDestination = ScreenRoutes.ConsultationNav.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = ScreenRoutes.HomeScreen.route) {

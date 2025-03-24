@@ -1,7 +1,6 @@
 package com.wpay.medibook.ui.navigation
 
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -9,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.wpay.core.navigation.ScreenRoutes
+import com.wpay.medibook.data.model.RequestAppointment.UNKNOWN_REQUEST
 import com.wpay.medibook.ui.screens.book_consultation.BookAppointmentScreen
 import com.wpay.medibook.ui.screens.consultation.AppointmentScreen
 import com.wpay.medibook.viewmodel.AppointmentViewModel
@@ -28,14 +28,14 @@ fun NavGraphBuilder.AppointmentNav(
             )
         }
         composable(
-            route = "${ScreenRoutes.BookAppointmentScreen.route}/{activeFormId}",
+            route = "${ScreenRoutes.BookAppointmentScreen.route}/{actionId}",
             arguments = listOf(
-                navArgument("activeFormId") {
-                    type = NavType.IntType
+                navArgument("actionId") {
+                    type = NavType.StringType
                 })
         ) { backStackEntry ->
-            val activeFormId = backStackEntry.arguments?.getInt("activeFormId") ?: 1
-            BookAppointmentScreen(activeFormId = activeFormId, navController = navController)
+            val id = backStackEntry.arguments?.getString("actionId") ?: UNKNOWN_REQUEST.value
+            BookAppointmentScreen(actionId = id, navController = navController)
         }
     }
 }

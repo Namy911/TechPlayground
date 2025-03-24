@@ -9,6 +9,8 @@ import com.wpay.core.util.Result
 import com.wpay.medibook.data.model.AppointmentEffect
 import com.wpay.medibook.data.model.AppointmentEvent
 import com.wpay.medibook.data.model.AppointmentSate
+import com.wpay.medibook.data.model.RequestAppointment
+import com.wpay.medibook.data.model.RequestAppointment.REQUEST_PRESCRIPTION
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -64,7 +66,17 @@ class AppointmentViewModel @Inject constructor(
     }
 
     fun onEvent(event: AppointmentEvent){
-
+        viewModelScope.launch {
+            when(event){
+                is AppointmentEvent.OnRequestActionClick -> {
+                    if (event.action == REQUEST_PRESCRIPTION.value) {
+                        _uiEffect.emit(AppointmentEffect.RequestPrescription)
+                    } else {
+                        _uiEffect.emit(AppointmentEffect.ScheduleConsultation)
+                    }
+                }
+            }
+        }
     }
 
 //    fun getPrescriptionsForUser(userId: Long) = prescriptionRepository.getPrescriptionsForUser(userId)
