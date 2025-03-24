@@ -13,7 +13,7 @@ class StatisticsRepository @Inject constructor (private val db: UserDatabase) {
 
     suspend fun addUser(users: User) = db.userDao().insertUser(users)
 
-    fun getUser(id: Int) = db.userDao().getUserById(id)
+    fun getUser(id: Int) = db.userDao().getUserById(id.toLong())
         .map { user ->
             user?.let {
                 Result.Success(it)

@@ -4,9 +4,11 @@ import com.wpay.core.data.database.dao.UserDao
 import com.wpay.core.data.database.entity.User
 import com.wpay.core.domain.repository.UserRepository
 import com.wpay.core.util.Result
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -27,6 +29,19 @@ class UserRepositoryImp @Inject constructor(private val userDao: UserDao) : User
         } ?: run {
             throw Exception("User not found")
         }
+    }
+
+    override fun getUserProfileById(id: Long): Flow<Result<User>> = flow {
+        userDao.getUserById(id)
+            .catch {
+                emit(Result.Error(it.message ?: "An error occurred while fetching user data"))
+            }.collect { user ->
+                user?.let {
+                    emit(Result.Success(user))
+                } ?: run {
+                    emit(Result.Error("User not found"))
+                }
+            }
     }
 
     override suspend fun insertUser(fullName: String, email: String, password: String) = try {

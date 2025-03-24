@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.wpay.core.domain.repository.ConsultationRepository
 import com.wpay.core.domain.repository.PrescriptionRepository
 import com.wpay.core.domain.repository.UserRepository
-
+import com.wpay.core.util.Result
 import com.wpay.medibook.data.model.AppointmentEffect
 import com.wpay.medibook.data.model.AppointmentEvent
 import com.wpay.medibook.data.model.AppointmentSate
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AppointmentViewModel @Inject constructor(
     private val consultationRepo: ConsultationRepository,
-    private val prescriptionRepository: PrescriptionRepository,
+    private val prescriptionRepo: PrescriptionRepository,
     private val userRepo: UserRepository,
 ) : ViewModel(){
 
@@ -33,14 +33,32 @@ class AppointmentViewModel @Inject constructor(
     private val _uiEffect = MutableSharedFlow<AppointmentEffect>(replay = 0, extraBufferCapacity = 1)
     val uiEffect: SharedFlow<AppointmentEffect> = _uiEffect.asSharedFlow()
 
-//    val userId: StateFlow<Long?> = userRepo.userId
-
     init {
         viewModelScope.launch {
-            userRepo.userId.collect { id ->
-                _uiState.update {
-                    it.copy(userName = id?.toString() ?: "Default Name")
-                }
+            userRepo.userId.collect { userId ->
+                 userId?.let {
+                    userRepo.getUserProfileById(userId).collect { result ->
+                        when (result) {
+                            is Result.Success -> {
+                                _uiState.update { it.copy(
+                                    isLoading = false,
+                                    userName = result.data.name,
+                                ) }
+                            }
+
+                            is Result.Error -> {
+                                _uiState.update {
+                                    it.copy(
+                                        isLoading = false,
+                                        userProfileError = result.message
+                                    )
+                                }
+                            }
+
+                            Result.Loading -> {}
+                        }
+                    }
+                 }
             }
         }
     }
