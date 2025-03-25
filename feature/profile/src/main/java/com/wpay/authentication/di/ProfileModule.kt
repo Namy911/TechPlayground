@@ -7,6 +7,7 @@ import com.wpay.authentication.data.validation.MatchingPassValidator
 import com.wpay.authentication.data.validation.PasswordValidator
 import com.wpay.authentication.data.validation.TermsValidator
 import com.wpay.authentication.domain.repository.AuthRepositoryImp
+import com.wpay.core.di.FullNameValidatorQualifier
 import com.wpay.core.domain.repository.UserRepository
 import com.wpay.core.domain.validation.Validator
 import com.wpay.core.util.DispatcherProvider

@@ -9,3 +9,7 @@ annotation class DataStoreFileName
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class DatabaseName
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class FullNameValidatorQualifier

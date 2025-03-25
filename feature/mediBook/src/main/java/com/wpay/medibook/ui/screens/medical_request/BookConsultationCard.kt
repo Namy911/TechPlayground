@@ -1,4 +1,4 @@
-package com.wpay.medibook.ui.screens.book_consultation
+package com.wpay.medibook.ui.screens.medical_request
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateContentSize

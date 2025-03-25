@@ -17,7 +17,3 @@ annotation class TermsValidatorQualifier
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class MatchingPassValidatorQualifier
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class FullNameValidatorQualifier

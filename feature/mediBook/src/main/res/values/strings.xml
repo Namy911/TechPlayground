@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="consultation_success_message">Programarea a fost completată cu succes</string>
+    <string name="prescription_success_message">Receta a fost trimisă cu succes</string>
+    <string name="unknown_action_message">Unknown action</string>
+</resources>

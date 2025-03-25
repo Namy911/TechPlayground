@@ -6,10 +6,10 @@ import com.wpay.authentication.data.model.RegisterEffect
 import com.wpay.authentication.data.model.RegisterEvent
 import com.wpay.authentication.data.model.RegistrationState
 import com.wpay.authentication.di.EmailValidatorQualifier
-import com.wpay.authentication.di.FullNameValidatorQualifier
 import com.wpay.authentication.di.MatchingPassValidatorQualifier
 import com.wpay.authentication.di.PasswordValidatorQualifier
 import com.wpay.authentication.di.TermsValidatorQualifier
+import com.wpay.core.di.FullNameValidatorQualifier
 import com.wpay.core.domain.repository.UserRepository
 import com.wpay.core.domain.validation.Validator
 import com.wpay.core.util.Result
