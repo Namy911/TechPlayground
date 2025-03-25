@@ -36,6 +36,7 @@ fun InfoCard(
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+//        DateTimePicker()
         fields.forEach { (label, state) ->
             OutlinedTextField(
                 value = state.value,

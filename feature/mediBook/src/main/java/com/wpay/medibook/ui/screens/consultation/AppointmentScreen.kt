@@ -29,7 +29,6 @@ import com.wpay.medibook.data.model.AppointmentEffect
 import com.wpay.medibook.data.model.AppointmentEvent
 import com.wpay.medibook.data.model.RequestAppointment.REQUEST_PRESCRIPTION
 import com.wpay.medibook.data.model.RequestAppointment.SCHEDULE_CONSULTATION
-import com.wpay.medibook.ui.screens.DateTimePicker
 import com.wpay.medibook.viewmodel.AppointmentViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -80,7 +79,6 @@ fun AppointmentScreen(
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(vertical = 24.dp)
                 )
-                DateTimePicker()
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)

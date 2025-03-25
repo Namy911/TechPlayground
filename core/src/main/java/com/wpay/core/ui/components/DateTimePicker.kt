@@ -1,5 +1,6 @@
-package com.wpay.medibook.ui.screens
+package com.wpay.core.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -33,7 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import java.util.Calendar
@@ -41,7 +43,6 @@ import java.util.Locale
 
 @Composable
 fun DateTimePicker() {
-    val context = LocalContext.current
     val calendar = Calendar.getInstance()
 
     // States for date and time
@@ -51,12 +52,11 @@ fun DateTimePicker() {
     val showDatePicker = remember { mutableStateOf(false) }
 
     // UI
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(modifier = Modifier.background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))) {
         // Date input field
         TextField(
             value = selectedDate.value,
             onValueChange = { selectedDate.value = it },
-            label = { Text("Select Date") },
             modifier = Modifier.fillMaxWidth(),
             readOnly = true,
             trailingIcon = {
