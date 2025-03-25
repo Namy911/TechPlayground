@@ -49,12 +49,10 @@ fun BookAppointmentScreen(
     val showDialog = remember { mutableStateOf(false) }
     val userChose = remember { mutableStateOf("") }
 
-    var expandedCard by remember { mutableStateOf<String?>(requestId) }
-
     if (showDialog.value) {
         val dialogConfig = getDialogConfigForCardState(requestId)
 
-        ConfirmationDialog(dialogConfig){
+        ConfirmationDialog(dialogConfig) {
             showDialog.value = false
             navController.navigate(ScreenRoutes.ConsultationNav.route) {
                 launchSingleTop = true
@@ -87,82 +85,23 @@ fun BookAppointmentScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         BookConsultationCard(
-            text = stringResource(string.book_consultation_title),
-            imageId = R.drawable.calendar_24,
-            activeFormImageId = if (uiState.consultExpandForm) drawable.navigate_next_2 else R.drawable.navigate_next,
-            onClick = {
-                viewModel.onEvent(
-                    MedicalRequestEvent.ConsultationFormClicked
-                )
-            },
-            activeFormSlot = {
-                if (uiState.consultExpandForm) {
-                    InfoCard(
-                        route = "consutation",
-                        fields = listOf(
-                            "Date" to dateConsultation,
-                            "Specialist" to specialistConsultation
-                        ),
-                        buttons = listOf(
-                            SimpleButtonConfigImp(
-                                text = stringResource(string.btn_txt_cancel),
-                                textColor = primaryColor,
-                                backgroundColor = Color.White
-                            ) {
-                                navController.popBackStack()
-                            },
-                            ResultButtonConfigImp(
-                                text = stringResource(string.btn_txt_send),
-                                backgroundColor = btnBackgroundColor,
-                                textColor = Color.White
-                            ) { route ->
-                                userChose.value = route ?: ""
-                                showDialog.value = true
-                            }
-                        )
-                    )
-                }
-            },
+            uiState = uiState,
+            activeFormImageId = getActiveImageId(uiState.consultExpandForm),
+            viewModel = viewModel,
         )
-        BookConsultationCard(
-            text = stringResource(string.book_consultation_message),
-            imageId = drawable.book_24,
-            activeFormImageId = if (uiState.prescriptExpandForm) drawable.navigate_next_2 else R.drawable.navigate_next,
-            onClick = {
-                viewModel.onEvent(
-                    MedicalRequestEvent.PrescriptionFormClicked
-                )
-            },
-            activeFormSlot = {
-                if (uiState.prescriptExpandForm) {
-                    InfoCard(
-                        route = "prescription",
-                        fields = listOf(
-                            "Date" to datePrescription,
-                            "Specialist" to specialistPrescription,
-                            "Medical Center" to medicalCenter
-                        ),
-                        buttons = listOf(
-                            SimpleButtonConfigImp(
-                                text = stringResource(string.btn_txt_cancel),
-                                backgroundColor = Color.White,
-                                textColor = btnBackgroundColor
-                            ) {
-                                navController.popBackStack()
-                            },
-                            ResultButtonConfigImp(
-                                text = stringResource(string.btn_txt_send),
-                                backgroundColor = btnBackgroundColor,
-                                textColor = Color.White
-                            ) { route ->
-                                userChose.value = route ?: ""
-                                showDialog.value = true
-                            }
-                        )
-                    )
-                }
-            }
+        BookPrescriptionCard(
+            uiState = uiState,
+            activeFormImageId = getActiveImageId(uiState.prescriptExpandForm),
+            viewModel = viewModel,
         )
+    }
+}
+
+fun getActiveImageId(isExpanded: Boolean): Int {
+    return if (isExpanded) {
+        drawable.navigate_next_2
+    } else {
+        R.drawable.navigate_next
     }
 }
 
@@ -173,7 +112,7 @@ fun getDialogConfigForCardState(expandedCard: String?): DialogConfig {
             messageResId = string.consultation_success_message
         )
 
-        REQUEST_PRESCRIPTION.value-> DialogConfig(
+        REQUEST_PRESCRIPTION.value -> DialogConfig(
             imageResId = drawable.group_57,
             messageResId = string.prescription_success_message
         )

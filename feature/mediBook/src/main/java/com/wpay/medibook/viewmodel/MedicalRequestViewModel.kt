@@ -44,31 +44,36 @@ class MedicalRequestViewModel @Inject constructor(
                 is MedicalRequestEvent.MedicalCenterSelected -> TODO()
                 is MedicalRequestEvent.OpenDatePicker -> TODO()
                 is MedicalRequestEvent.SpecialistSelected -> TODO()
-                is MedicalRequestEvent.ConsultationFormClicked -> makeFormConsultationActive()
-                is MedicalRequestEvent.PrescriptionFormClicked -> makeFormPrescriptionActive()
+                is MedicalRequestEvent.ConsultationFormClicked -> { switchActiveForm() }
+                is MedicalRequestEvent.PrescriptionFormClicked -> { switchActiveForm() }
             }
         }
     }
 
     fun onRequestSelected(actionId: String) {
         when (actionId) {
-            SCHEDULE_CONSULTATION.value -> makeFormConsultationActive()
-            REQUEST_PRESCRIPTION.value -> makeFormPrescriptionActive()
+            SCHEDULE_CONSULTATION.value -> {
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        consultExpandForm = true
+                    )
+                }
+            }
+            REQUEST_PRESCRIPTION.value -> {
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        prescriptExpandForm = true,
+                    )
+                }
+            }
         }
     }
 
-    private fun makeFormPrescriptionActive(){
+    private fun switchActiveForm(){
         _uiState.update { currentState ->
             currentState.copy(
-                consultExpandForm = false, prescriptExpandForm = true
-            )
-        }
-    }
-
-    private fun makeFormConsultationActive(){
-        _uiState.update { currentState ->
-            currentState.copy(
-                consultExpandForm = true, prescriptExpandForm = false
+                prescriptExpandForm = !currentState.prescriptExpandForm,
+                consultExpandForm = !currentState.consultExpandForm
             )
         }
     }
