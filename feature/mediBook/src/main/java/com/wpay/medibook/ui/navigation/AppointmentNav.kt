@@ -38,7 +38,7 @@ fun NavGraphBuilder.AppointmentNav(
             val id = backStackEntry.arguments?.getString("actionId") ?: UNKNOWN_REQUEST.value
 
             BookAppointmentScreen(
-                actionId = id,
+                requestId = id,
                 navController = navController
             )
         }

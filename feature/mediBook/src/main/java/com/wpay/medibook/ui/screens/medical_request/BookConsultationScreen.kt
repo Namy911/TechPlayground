@@ -5,12 +5,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -23,13 +26,16 @@ import com.wpay.core.ui.theme.btnBackgroundColor
 import com.wpay.core.ui.theme.primaryColor
 import com.wpay.medibook.R.*
 import com.wpay.medibook.data.model.DialogConfig
+import com.wpay.medibook.data.model.MedicalRequestEffect
+import com.wpay.medibook.data.model.MedicalRequestEvent
 import com.wpay.medibook.data.model.RequestAppointment.REQUEST_PRESCRIPTION
 import com.wpay.medibook.data.model.RequestAppointment.SCHEDULE_CONSULTATION
 import com.wpay.medibook.viewmodel.MedicalRequestViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun BookAppointmentScreen(
-    actionId: String,
+    requestId: String,
     navController: NavHostController,
     viewModel: MedicalRequestViewModel = hiltViewModel(),
 ) {
@@ -43,10 +49,10 @@ fun BookAppointmentScreen(
     val showDialog = remember { mutableStateOf(false) }
     val userChose = remember { mutableStateOf("") }
 
-    var expandedCard by remember { mutableStateOf<String?>(actionId) }
+    var expandedCard by remember { mutableStateOf<String?>(requestId) }
 
     if (showDialog.value) {
-        val dialogConfig = getDialogConfigForCardState(expandedCard)
+        val dialogConfig = getDialogConfigForCardState(requestId)
 
         ConfirmationDialog(dialogConfig){
             showDialog.value = false
@@ -57,6 +63,23 @@ fun BookAppointmentScreen(
         }
     }
 
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEffect.collectLatest { effect ->
+            when (effect) {
+                MedicalRequestEffect.CloseDatePicker -> TODO()
+                MedicalRequestEffect.NavigateBack -> TODO()
+                MedicalRequestEffect.ShowDatePicker -> TODO()
+                MedicalRequestEffect.ShowRequestSuccess -> TODO()
+            }
+        }
+    }
+
+    LaunchedEffect(requestId) {
+        viewModel.onRequestSelected(requestId)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,15 +87,16 @@ fun BookAppointmentScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         BookConsultationCard(
-            text = "Programeazate o \nconsultatie",
+            text = stringResource(string.book_consultation_title),
             imageId = R.drawable.calendar_24,
-            activeFormImageId = if (expandedCard == SCHEDULE_CONSULTATION.value) drawable.navigate_next_2 else R.drawable.navigate_next,
+            activeFormImageId = if (uiState.consultExpandForm) drawable.navigate_next_2 else R.drawable.navigate_next,
             onClick = {
-                expandedCard =
-                    if (expandedCard == SCHEDULE_CONSULTATION.value) null else SCHEDULE_CONSULTATION.value
+                viewModel.onEvent(
+                    MedicalRequestEvent.ConsultationFormClicked
+                )
             },
             activeFormSlot = {
-                if (expandedCard == SCHEDULE_CONSULTATION.value) {
+                if (uiState.consultExpandForm) {
                     InfoCard(
                         route = "consutation",
                         fields = listOf(
@@ -81,14 +105,14 @@ fun BookAppointmentScreen(
                         ),
                         buttons = listOf(
                             SimpleButtonConfigImp(
-                                text = "Cancel",
+                                text = stringResource(string.btn_txt_cancel),
                                 textColor = primaryColor,
                                 backgroundColor = Color.White
                             ) {
                                 navController.popBackStack()
                             },
                             ResultButtonConfigImp(
-                                text = "Send",
+                                text = stringResource(string.btn_txt_send),
                                 backgroundColor = btnBackgroundColor,
                                 textColor = Color.White
                             ) { route ->
@@ -101,15 +125,16 @@ fun BookAppointmentScreen(
             },
         )
         BookConsultationCard(
-            text = "Solicita o\nreceta",
+            text = stringResource(string.book_consultation_message),
             imageId = drawable.book_24,
-            activeFormImageId = if (expandedCard == REQUEST_PRESCRIPTION.value) drawable.navigate_next_2 else R.drawable.navigate_next,
+            activeFormImageId = if (uiState.prescriptExpandForm) drawable.navigate_next_2 else R.drawable.navigate_next,
             onClick = {
-                expandedCard =
-                    if (expandedCard == REQUEST_PRESCRIPTION.value) null else REQUEST_PRESCRIPTION.value
+                viewModel.onEvent(
+                    MedicalRequestEvent.PrescriptionFormClicked
+                )
             },
             activeFormSlot = {
-                if (expandedCard == REQUEST_PRESCRIPTION.value) {
+                if (uiState.prescriptExpandForm) {
                     InfoCard(
                         route = "prescription",
                         fields = listOf(
@@ -119,14 +144,14 @@ fun BookAppointmentScreen(
                         ),
                         buttons = listOf(
                             SimpleButtonConfigImp(
-                                text = "Cancel",
+                                text = stringResource(string.btn_txt_cancel),
                                 backgroundColor = Color.White,
                                 textColor = btnBackgroundColor
                             ) {
                                 navController.popBackStack()
                             },
                             ResultButtonConfigImp(
-                                text = "Send",
+                                text = stringResource(string.btn_txt_send),
                                 backgroundColor = btnBackgroundColor,
                                 textColor = Color.White
                             ) { route ->

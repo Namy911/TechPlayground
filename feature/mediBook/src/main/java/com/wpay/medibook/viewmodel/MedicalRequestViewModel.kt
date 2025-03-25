@@ -7,6 +7,9 @@ import com.wpay.core.domain.validation.Validator
 import com.wpay.medibook.data.model.MedicalRequestEffect
 import com.wpay.medibook.data.model.MedicalRequestEvent
 import com.wpay.medibook.data.model.MedicalRequestState
+import com.wpay.medibook.data.model.RequestAppointment
+import com.wpay.medibook.data.model.RequestAppointment.REQUEST_PRESCRIPTION
+import com.wpay.medibook.data.model.RequestAppointment.SCHEDULE_CONSULTATION
 import com.wpay.medibook.di.LocationValidatorQualifier
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,6 +18,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,8 +44,32 @@ class MedicalRequestViewModel @Inject constructor(
                 is MedicalRequestEvent.MedicalCenterSelected -> TODO()
                 is MedicalRequestEvent.OpenDatePicker -> TODO()
                 is MedicalRequestEvent.SpecialistSelected -> TODO()
+                is MedicalRequestEvent.ConsultationFormClicked -> makeFormConsultationActive()
+                is MedicalRequestEvent.PrescriptionFormClicked -> makeFormPrescriptionActive()
             }
         }
     }
 
+    fun onRequestSelected(actionId: String) {
+        when (actionId) {
+            SCHEDULE_CONSULTATION.value -> makeFormConsultationActive()
+            REQUEST_PRESCRIPTION.value -> makeFormPrescriptionActive()
+        }
+    }
+
+    private fun makeFormPrescriptionActive(){
+        _uiState.update { currentState ->
+            currentState.copy(
+                consultExpandForm = false, prescriptExpandForm = true
+            )
+        }
+    }
+
+    private fun makeFormConsultationActive(){
+        _uiState.update { currentState ->
+            currentState.copy(
+                consultExpandForm = true, prescriptExpandForm = false
+            )
+        }
+    }
 }
