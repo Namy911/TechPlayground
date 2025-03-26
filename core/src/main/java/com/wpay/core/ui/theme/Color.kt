@@ -16,5 +16,5 @@ val btnBackgroundColor = Blue80
 
 
 val secondaryColor = Color(0xFF03DAC5)
-val backgroundColor = Color(0xFFFFFFFF)
+val backgroundColor = Color(0xFFD6E3E5)
 val textColor = Color(0xFF000000)

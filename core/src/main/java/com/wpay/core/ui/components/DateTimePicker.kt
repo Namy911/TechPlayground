@@ -1,6 +1,7 @@
 package com.wpay.core.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -27,7 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,37 +37,81 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.wpay.core.ui.theme.backgroundColor
 import java.util.Calendar
 import java.util.Locale
 
 @Composable
 fun DateTimePicker() {
     val calendar = Calendar.getInstance()
-
-    // States for date and time
     val selectedDate = remember { mutableStateOf("") }
-
-    // State for controlling the visibility of the DatePicker
     val showDatePicker = remember { mutableStateOf(false) }
 
-    // UI
-    Column(modifier = Modifier.background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))) {
-        // Date input field
-        TextField(
-            value = selectedDate.value,
-            onValueChange = { selectedDate.value = it },
-            modifier = Modifier.fillMaxWidth(),
-            readOnly = true,
-            trailingIcon = {
-                IconButton(onClick = { showDatePicker.value = !showDatePicker.value }) {
+    Column(
+        modifier = Modifier.background(
+            color = backgroundColor,
+            shape = RoundedCornerShape(16.dp)
+        )
+    ) {
+        CustomDialogField()
+
+        if (showDatePicker.value) {
+            DatePicker(
+                onDateSelected = { day, month, year ->
+                    selectedDate.value = "$day/${month + 1}/$year"
+                    showDatePicker.value = false
+                },
+                currentYear = calendar.get(Calendar.YEAR),
+                currentMonth = calendar.get(Calendar.MONTH),
+                currentDay = calendar.get(Calendar.DAY_OF_MONTH),
+                selectedDate = selectedDate.value
+            )
+        }
+    }
+}
+
+@Composable
+fun CustomDialogField() {
+    val calendar = Calendar.getInstance()
+    val selectedDate = remember { mutableStateOf("") }
+    val showDatePicker = remember { mutableStateOf(false) }
+
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
+                .background(Color.White, shape = RoundedCornerShape(8.dp))
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                BasicTextField(
+                    value = selectedDate.value,
+                    onValueChange = {},
+                    readOnly = true,
+                    textStyle = TextStyle(color = Color.Black, fontSize = 16.sp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 16.dp, top = 8.dp)
+                )
+
+                IconButton(
+                    onClick = { showDatePicker.value = !showDatePicker.value },
+                    modifier = Modifier.padding(top = 4.dp)
+                ) {
                     Icon(Icons.Default.DateRange, contentDescription = "Open Calendar")
                 }
             }
-        )
+        }
 
-        // Show the calendar below the date field
         if (showDatePicker.value) {
             DatePicker(
                 onDateSelected = { day, month, year ->
@@ -88,7 +133,7 @@ fun DatePicker(
     currentYear: Int,
     currentMonth: Int,
     currentDay: Int,
-    selectedDate: String
+    selectedDate: String,
 ) {
     var year by remember { mutableStateOf(currentYear) }
     var month by remember { mutableStateOf(currentMonth) }
@@ -99,19 +144,11 @@ fun DatePicker(
     calendar.set(Calendar.YEAR, year)
     calendar.set(Calendar.MONTH, month)
 
-    // Get the number of days in the current month
     val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-    // Get the weekday of the 1st day of the current month
     val firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK)
-
-    // Get the month name (e.g., "January")
     val monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
-
-    // Get the weekday names (Mon, Tue, Wed, etc.)
     val weekdays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
 
-    // Create a list of days for the calendar grid
     val daysList = mutableListOf<String>()
     for (i in 1 until firstDayOfMonth) {
         daysList.add("")
@@ -120,7 +157,6 @@ fun DatePicker(
         daysList.add(i.toString())
     }
 
-    // Check if there is a selected date from the input field
     val selectedDateParts = selectedDate.split("/")
     if (selectedDateParts.size == 3) {
         val selectedDayInput = selectedDateParts[0].toIntOrNull()
@@ -128,7 +164,6 @@ fun DatePicker(
         val selectedYearInput = selectedDateParts[2].toIntOrNull()
 
         if (selectedDayInput != null && selectedMonthInput != null && selectedYearInput != null) {
-            // If the date from input field exists, set it as the selected date
             if (selectedYearInput == year && selectedMonthInput == month) {
                 selectedDay = selectedDayInput
             }
@@ -136,14 +171,12 @@ fun DatePicker(
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        // Display the month name and year with navigation arrows
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = {
-                // Decrease month, handle year change
                 if (month == 0) {
                     month = 11
                     year -= 1
@@ -154,7 +187,6 @@ fun DatePicker(
                 Icon(Icons.Default.ArrowBack, contentDescription = "Previous Month")
             }
 
-            // Month Name with dropdown on click
             Box(
                 modifier = Modifier
 
@@ -168,14 +200,14 @@ fun DatePicker(
                     Icon(
                         imageVector = Icons.Filled.ArrowDropDown,
                         contentDescription = "Arrow pointing down",
-                        modifier = Modifier.size(32.dp) // Adjust size as needed
+                        modifier = Modifier
+                            .size(32.dp)
                             .clickable { showMonthDropdown = !showMonthDropdown }
                     )
                 }
             }
 
             IconButton(onClick = {
-                // Increase month, handle year change
                 if (month == 11) {
                     month = 0
                     year += 1
@@ -187,7 +219,6 @@ fun DatePicker(
             }
         }
 
-        // Display dropdown for month selection
         DropdownMenu(
             expanded = showMonthDropdown,
             onDismissRequest = { showMonthDropdown = false }
@@ -211,7 +242,6 @@ fun DatePicker(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Display the days of the week (Sun, Mon, Tue, etc.)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             weekdays.forEach {
                 Text(
@@ -225,7 +255,6 @@ fun DatePicker(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Display the days in a grid (4 weeks, each row is a week)
         LazyVerticalGrid(
             columns = GridCells.Fixed(7),
             modifier = Modifier.fillMaxWidth()
@@ -237,7 +266,6 @@ fun DatePicker(
                         .padding(8.dp)
                         .fillMaxWidth()
                         .clickable {
-                            // Only select valid days (not empty)
                             if (day.isNotEmpty()) {
                                 val dayInt = day.toInt()
                                 onDateSelected(dayInt, month, year)

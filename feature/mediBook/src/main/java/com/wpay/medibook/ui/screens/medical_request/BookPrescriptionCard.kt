@@ -31,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.wpay.core.R.drawable
 import com.wpay.core.ui.components.CustomTextField
 import com.wpay.core.ui.components.DateTimePicker
 import com.wpay.core.ui.theme.btnBackgroundColor
@@ -45,7 +44,7 @@ import com.wpay.medibook.viewmodel.MedicalRequestViewModel
 fun BookPrescriptionCard(
     uiState: MedicalRequestState,
     viewModel: MedicalRequestViewModel,
-    @DrawableRes activeFormImageId: Int = drawable.navigate_next,
+    @DrawableRes activeFormImageId: Int,
 ) {
     Column(
         modifier = Modifier
@@ -163,7 +162,6 @@ fun BookPrescriptionCard(
                             )
                         }
                     }
-
                 }
             }
         }
