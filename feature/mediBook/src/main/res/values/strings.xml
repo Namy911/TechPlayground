@@ -7,4 +7,8 @@
     <string name="book_prescription_title">Solicita o\nreceta</string>
     <string name="btn_txt_send">Send</string>
     <string name="btn_txt_cancel">Cancel</string>
+    <string name="label_specialist_name">Specialist</string>
+    <string name="label_medical_center_name">Medical Center</string>
+    <string name="john_doe">John, Doe</string>
+    <string name="hint_medical_center">Chisinau, Riscani</string>
 </resources>

@@ -39,6 +39,7 @@ import com.wpay.core.ui.theme.primaryColor
 import com.wpay.medibook.R
 import com.wpay.medibook.data.model.MedicalRequestEvent
 import com.wpay.medibook.data.model.MedicalRequestState
+import com.wpay.medibook.data.model.RequestAppointment
 import com.wpay.medibook.viewmodel.MedicalRequestViewModel
 
 @Composable
@@ -101,14 +102,19 @@ fun BookConsultationCard(
                 DateTimePicker()
 
                 CustomTextField(
-                    value = uiState.consultSpecialist,
+                    value = uiState.consultSpecialistName,
                     onValueChange = {
-//                    viewModel.onEvent()
+                        viewModel.onEvent(
+                            MedicalRequestEvent.SpecialistNameChanged(
+                                name = it,
+                                requestId = RequestAppointment.SCHEDULE_CONSULTATION.value
+                            )
+                        )
                     },
-                    label = "",
+                    label = stringResource(R.string.label_specialist_name),
                     isError = false,
                     errorMessage = "",
-                    placeholder = "Specialist",
+                    placeholder = stringResource(R.string.john_doe),
                 )
 
                 Row(

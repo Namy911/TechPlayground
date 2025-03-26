@@ -5,7 +5,7 @@ data class MedicalRequestState(
     val prescriptExpandForm: Boolean = false,
     val consultDate: String = "",
     val prescriptDate: String = "",
-    val prescriptSpecialist: String = "",
-    val consultSpecialist: String = "",
+    val prescriptSpecialistName: String = "",
+    val consultSpecialistName: String = "",
     val medicalCenter: String = "",
 )

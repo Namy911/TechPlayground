@@ -38,6 +38,7 @@ import com.wpay.core.ui.theme.primaryColor
 import com.wpay.medibook.R
 import com.wpay.medibook.data.model.MedicalRequestEvent
 import com.wpay.medibook.data.model.MedicalRequestState
+import com.wpay.medibook.data.model.RequestAppointment
 import com.wpay.medibook.viewmodel.MedicalRequestViewModel
 
 @Composable
@@ -99,33 +100,43 @@ fun BookPrescriptionCard(
                     modifier = Modifier
                         .padding(16.dp)
                         .fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+//                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     DateTimePicker()
 
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     CustomTextField(
-                        value = uiState.prescriptSpecialist,
+                        value = uiState.prescriptSpecialistName,
                         onValueChange = {
-//                    viewModel.onEvent()
+                            viewModel.onEvent(
+                                MedicalRequestEvent.SpecialistNameChanged(
+                                    name = it,
+                                    requestId = RequestAppointment.REQUEST_PRESCRIPTION.value
+                                )
+                            )
                         },
-                        label = "",
+                        label = stringResource(R.string.label_specialist_name),
                         isError = false,
                         errorMessage = "",
-                        placeholder = "Specialist",
+                        placeholder = stringResource(R.string.john_doe),
                     )
 
                     CustomTextField(
-                        value = uiState.prescriptDate,
+                        value = uiState.medicalCenter,
                         onValueChange = {
-//                    viewModel.onEvent()
+                            viewModel.onEvent(
+                                MedicalRequestEvent.MedicalCenterChanged(it)
+                            )
                         },
-                        label = "",
+                        label = stringResource(R.string.label_medical_center_name),
                         isError = false,
                         errorMessage = "",
-                        placeholder = "Specialist",
+                        placeholder = stringResource(R.string.hint_medical_center),
                     )
+
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Row(

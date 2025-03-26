@@ -7,7 +7,6 @@ import com.wpay.core.domain.validation.Validator
 import com.wpay.medibook.data.model.MedicalRequestEffect
 import com.wpay.medibook.data.model.MedicalRequestEvent
 import com.wpay.medibook.data.model.MedicalRequestState
-import com.wpay.medibook.data.model.RequestAppointment
 import com.wpay.medibook.data.model.RequestAppointment.REQUEST_PRESCRIPTION
 import com.wpay.medibook.data.model.RequestAppointment.SCHEDULE_CONSULTATION
 import com.wpay.medibook.di.LocationValidatorQualifier
@@ -37,15 +36,39 @@ class MedicalRequestViewModel @Inject constructor(
     fun onEvent(event: MedicalRequestEvent) {
         viewModelScope.launch {
             when (event) {
-                is MedicalRequestEvent.CancelRequest -> TODO()
-                is MedicalRequestEvent.RequestConsultation -> TODO()
-                is MedicalRequestEvent.RequestPrescription -> TODO()
+                is MedicalRequestEvent.CancelRequest -> {
+                    _uiEffect.emit(
+                        MedicalRequestEffect.NavigateBack
+                    )
+                }
+
+                is MedicalRequestEvent.RequestConsultation -> {
+                    _uiEffect.emit(
+                        MedicalRequestEffect.ShowRequestSuccess(SCHEDULE_CONSULTATION.value)
+                    )
+                }
+
+                is MedicalRequestEvent.RequestPrescription -> {
+                    _uiEffect.emit(
+                        MedicalRequestEffect.ShowRequestSuccess(REQUEST_PRESCRIPTION.value)
+                    )
+                }
+
                 is MedicalRequestEvent.DateSelected -> TODO()
-                is MedicalRequestEvent.MedicalCenterSelected -> TODO()
                 is MedicalRequestEvent.OpenDatePicker -> TODO()
-                is MedicalRequestEvent.SpecialistSelected -> TODO()
-                is MedicalRequestEvent.ConsultationFormClicked -> { switchActiveForm() }
-                is MedicalRequestEvent.PrescriptionFormClicked -> { switchActiveForm() }
+                is MedicalRequestEvent.MedicalCenterChanged -> medicalCenterChanged(event.name)
+                is MedicalRequestEvent.SpecialistNameChanged -> consultSpecialistNameChanged(
+                    name = event.name,
+                    requestId = event.requestId
+                )
+
+                is MedicalRequestEvent.ConsultationFormClicked -> {
+                    switchActiveForm()
+                }
+
+                is MedicalRequestEvent.PrescriptionFormClicked -> {
+                    switchActiveForm()
+                }
             }
         }
     }
@@ -59,6 +82,7 @@ class MedicalRequestViewModel @Inject constructor(
                     )
                 }
             }
+
             REQUEST_PRESCRIPTION.value -> {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -69,7 +93,32 @@ class MedicalRequestViewModel @Inject constructor(
         }
     }
 
-    private fun switchActiveForm(){
+    private fun consultSpecialistNameChanged(name: String, requestId: String) {
+        if (requestId == SCHEDULE_CONSULTATION.value) {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    consultSpecialistName = name
+                )
+            }
+        } else {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    prescriptSpecialistName = name
+                )
+            }
+        }
+
+    }
+
+    private fun medicalCenterChanged(name: String) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                medicalCenter = name
+            )
+        }
+    }
+
+    private fun switchActiveForm() {
         _uiState.update { currentState ->
             currentState.copy(
                 prescriptExpandForm = !currentState.prescriptExpandForm,

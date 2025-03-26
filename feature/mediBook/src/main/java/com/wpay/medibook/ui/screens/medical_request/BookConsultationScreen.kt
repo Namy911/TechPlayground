@@ -47,7 +47,7 @@ fun BookAppointmentScreen(
     val medicalCenter = remember { mutableStateOf("") }
 
     val showDialog = remember { mutableStateOf(false) }
-    val userChose = remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
 
     if (showDialog.value) {
         val dialogConfig = getDialogConfigForCardState(requestId)
@@ -61,15 +61,18 @@ fun BookAppointmentScreen(
         }
     }
 
-    val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.uiEffect.collectLatest { effect ->
             when (effect) {
-                MedicalRequestEffect.CloseDatePicker -> TODO()
-                MedicalRequestEffect.NavigateBack -> TODO()
-                MedicalRequestEffect.ShowDatePicker -> TODO()
-                MedicalRequestEffect.ShowRequestSuccess -> TODO()
+                is MedicalRequestEffect.CloseDatePicker -> TODO()
+                is MedicalRequestEffect.NavigateBack -> TODO()
+                is MedicalRequestEffect.ShowDatePicker -> TODO()
+                is MedicalRequestEffect.ShowRequestSuccess -> {
+                    if (effect.requestId == SCHEDULE_CONSULTATION.value) {
+                        showDialog.value = true
+                    }
+                }
             }
         }
     }

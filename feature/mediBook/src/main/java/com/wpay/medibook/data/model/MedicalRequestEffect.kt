@@ -1,7 +1,7 @@
 package com.wpay.medibook.data.model
 
 sealed class MedicalRequestEffect {
-    data object ShowRequestSuccess : MedicalRequestEffect()
+    data class ShowRequestSuccess(val requestId: String) : MedicalRequestEffect()
     data object ShowDatePicker : MedicalRequestEffect()
     data object CloseDatePicker : MedicalRequestEffect()
     data object NavigateBack : MedicalRequestEffect()
