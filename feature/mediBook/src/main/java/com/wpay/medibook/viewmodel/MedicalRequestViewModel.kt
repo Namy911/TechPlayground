@@ -55,7 +55,11 @@ class MedicalRequestViewModel @Inject constructor(
                 }
 
                 is MedicalRequestEvent.DateSelected -> TODO()
-                is MedicalRequestEvent.OpenDatePicker -> TODO()
+                is MedicalRequestEvent.OpenDatePicker -> {
+                    _uiEffect.emit(
+                        MedicalRequestEffect.ShowDatePicker
+                    )
+                }
                 is MedicalRequestEvent.MedicalCenterChanged -> medicalCenterChanged(event.name)
                 is MedicalRequestEvent.SpecialistNameChanged -> consultSpecialistNameChanged(
                     name = event.name,

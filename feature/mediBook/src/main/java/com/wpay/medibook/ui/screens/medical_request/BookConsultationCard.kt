@@ -126,6 +126,9 @@ fun BookConsultationCard(
                 ) {
                     Button(
                         onClick = {
+                            viewModel.onEvent(
+                                MedicalRequestEvent.RequestConsultation
+                            )
                         },
                         shape = RoundedCornerShape(48.dp),
                         border = BorderStroke(1.dp, primaryColor),
@@ -139,6 +142,9 @@ fun BookConsultationCard(
                     }
                     Button(
                         onClick = {
+                            viewModel.onEvent(
+                                MedicalRequestEvent.CancelRequest
+                            )
                         },
                         shape = RoundedCornerShape(48.dp),
                         border = BorderStroke(1.dp, primaryColor),

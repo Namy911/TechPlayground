@@ -10,24 +10,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.wpay.core.R
-import com.wpay.core.data.model.ResultButtonConfigImp
-import com.wpay.core.data.model.SimpleButtonConfigImp
 import com.wpay.core.navigation.ScreenRoutes
-import com.wpay.core.ui.components.InfoCard
-import com.wpay.core.ui.theme.btnBackgroundColor
-import com.wpay.core.ui.theme.primaryColor
-import com.wpay.medibook.R.*
+import com.wpay.medibook.R.drawable
+import com.wpay.medibook.R.string
 import com.wpay.medibook.data.model.DialogConfig
 import com.wpay.medibook.data.model.MedicalRequestEffect
-import com.wpay.medibook.data.model.MedicalRequestEvent
 import com.wpay.medibook.data.model.RequestAppointment.REQUEST_PRESCRIPTION
 import com.wpay.medibook.data.model.RequestAppointment.SCHEDULE_CONSULTATION
 import com.wpay.medibook.viewmodel.MedicalRequestViewModel
@@ -39,13 +31,6 @@ fun BookAppointmentScreen(
     navController: NavHostController,
     viewModel: MedicalRequestViewModel = hiltViewModel(),
 ) {
-    val dateConsultation = remember { mutableStateOf("") }
-    val specialistConsultation = remember { mutableStateOf("") }
-
-    val datePrescription = remember { mutableStateOf("") }
-    val specialistPrescription = remember { mutableStateOf("") }
-    val medicalCenter = remember { mutableStateOf("") }
-
     val showDialog = remember { mutableStateOf(false) }
     val uiState by viewModel.uiState.collectAsState()
 
@@ -66,13 +51,9 @@ fun BookAppointmentScreen(
         viewModel.uiEffect.collectLatest { effect ->
             when (effect) {
                 is MedicalRequestEffect.CloseDatePicker -> TODO()
-                is MedicalRequestEffect.NavigateBack -> TODO()
                 is MedicalRequestEffect.ShowDatePicker -> TODO()
-                is MedicalRequestEffect.ShowRequestSuccess -> {
-                    if (effect.requestId == SCHEDULE_CONSULTATION.value) {
-                        showDialog.value = true
-                    }
-                }
+                is MedicalRequestEffect.NavigateBack -> { navController.popBackStack() }
+                is MedicalRequestEffect.ShowRequestSuccess -> { showDialog.value = true }
             }
         }
     }
